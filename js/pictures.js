@@ -6,6 +6,9 @@
   var fragment = document.createDocumentFragment();
   var photos = [];
   var photosQuantity = 25;
+  var detailedPhotoContainer = document.querySelector('.big-picture');
+  var commentsCountBlock = detailedPhotoContainer.querySelector('.social__comment-count');
+  var loadCommentsBlock = detailedPhotoContainer.querySelector('.social__loadmore');
   var comments = [
     'Всё отлично!',
     'В целом всё неплохо. Но не всё.',
@@ -64,6 +67,26 @@
     photosContainer.appendChild(fragment);
   }
 
+  function renderDetailedPhoto(photoPreview) {
+    var detailedPhotoImg = detailedPhotoContainer.querySelector('.big-picture__img img');
+    var detailedPhotoLikes = detailedPhotoContainer.querySelector('.likes-count');
+    var detailedPhotoDescription = detailedPhotoContainer.querySelector('.social__caption');
+    var detailedPhotoCommentsQuantity = detailedPhotoContainer.querySelector('.comments-count');
+    var detailedPhotoCommentAvatar = detailedPhotoContainer.querySelector('.social__comments .social__comment img');
+    var detailedPhotoCommentText = detailedPhotoContainer.querySelector('.social__comments .social__comment .social__text');
+
+    detailedPhotoImg.src = photoPreview.url;
+    detailedPhotoLikes.textContent = photoPreview.likes;
+    detailedPhotoDescription.textContent = photoPreview.description;
+    detailedPhotoCommentsQuantity.textContent = 1000000;
+    detailedPhotoCommentAvatar.src = 'img/avatar-' + getRandomNum(1, 6) + '.svg';
+    detailedPhotoCommentText.textContent = photoPreview.comments;
+  }
+
   generatePhotos(photosQuantity);
   renderPhotos(photos);
+  detailedPhotoContainer.classList.remove('hidden');
+  renderDetailedPhoto(photos[0]);
+  commentsCountBlock.classList.add('visually-hidden');
+  loadCommentsBlock.classList.add('visually-hidden');
 })();
