@@ -79,10 +79,8 @@
       var previewPictureImg = previewPicture.querySelector('.picture__img');
       var previewPictureLikes = previewPicture.querySelector('.picture__stat--likes');
       var previewPictureComments = picturesToRender[i].comments;
-      var firstComment = previewPicture.querySelector('.picture__stat--comments:first-child');
       previewPictureImg.src = picturesToRender[i].url;
       previewPictureLikes.textContent = picturesToRender[i].likes;
-      firstComment.textContent = previewPictureComments[0];
       renderPreviewPicturesComments();
 
       fragment.appendChild(previewPicture);
