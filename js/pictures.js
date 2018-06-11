@@ -1,15 +1,14 @@
 'use strict';
 
 (function () {
+  var PICTURES_ITEMS_QUANTITY = 25;
   var fragment = document.createDocumentFragment();
   var picturesItems = [];
-  var PICTURES_ITEMS_QUANTITY = 25;
   var previewPicturesContainer = document.querySelector('.pictures');
   var previewPictureTemplate = document.querySelector('#picture').content;
   var detailedPictureContainer = document.querySelector('.big-picture');
   var detailedPictureCommentsCount = detailedPictureContainer.querySelector('.social__comment-count');
   var detailedPictureLoadComments = detailedPictureContainer.querySelector('.social__loadmore');
-
   var testComments = [
     'Всё отлично!',
     'В целом всё неплохо. Но не всё.',
@@ -18,7 +17,6 @@
     'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
     'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
   ];
-
   var testDescriptions = [
     'Тестим новую камеру!',
     'Затусили с друзьями на море',
