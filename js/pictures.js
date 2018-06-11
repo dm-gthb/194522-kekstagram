@@ -2,14 +2,7 @@
 
 (function () {
   var PICTURES_ITEMS_QUANTITY = 25;
-  var fragment = document.createDocumentFragment();
-  var picturesItems = [];
-  var previewPicturesContainer = document.querySelector('.pictures');
-  var previewPictureTemplate = document.querySelector('#picture').content;
-  var detailedPictureContainer = document.querySelector('.big-picture');
-  var detailedPictureCommentsCount = detailedPictureContainer.querySelector('.social__comment-count');
-  var detailedPictureLoadComments = detailedPictureContainer.querySelector('.social__loadmore');
-  var testComments = [
+  var TEST_COMMENTS = [
     'Всё отлично!',
     'В целом всё неплохо. Но не всё.',
     'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -17,7 +10,7 @@
     'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
     'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
   ];
-  var testDescriptions = [
+  var TEST_DESCRIPTIONS = [
     'Тестим новую камеру!',
     'Затусили с друзьями на море',
     'Как же круто тут кормят',
@@ -25,6 +18,13 @@
     'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
     'Вот это тачка!'
   ];
+  var fragment = document.createDocumentFragment();
+  var picturesItems = [];
+  var previewPicturesContainer = document.querySelector('.pictures');
+  var previewPictureTemplate = document.querySelector('#picture').content;
+  var detailedPictureContainer = document.querySelector('.big-picture');
+  var detailedPictureCommentsCount = detailedPictureContainer.querySelector('.social__comment-count');
+  var detailedPictureLoadComments = detailedPictureContainer.querySelector('.social__loadmore');
 
   function getRandomNum(min, max) {
     return Math.floor(min + Math.random() * (max - min + 1));
@@ -38,7 +38,7 @@
     var array = [];
     var arrayLength = getRandomNum(1, quantity);
     for (var i = 0; i < arrayLength; i++) {
-      array[i] = getRandomArrayElement(testComments);
+      array[i] = getRandomArrayElement(TEST_COMMENTS);
     }
 
     return array;
@@ -49,7 +49,7 @@
       url: 'photos/' + (index + 1) + '.jpg',
       likes: getRandomNum(15, 200),
       comments: generateRandomComments(5),
-      description: getRandomArrayElement(testDescriptions)
+      description: getRandomArrayElement(TEST_DESCRIPTIONS)
     };
   }
 
