@@ -35,13 +35,13 @@
   }
 
   function generateRandomComments(quantity) {
-    var array = [];
-    var arrayLength = getRandomNum(1, quantity);
-    for (var i = 0; i < arrayLength; i++) {
-      array[i] = getRandomArrayElement(TEST_COMMENTS);
+    var comments = [];
+    var commentsAmount = getRandomNum(1, quantity);
+    for (var i = 0; i < commentsAmount; i++) {
+      comments[i] = getRandomArrayElement(TEST_COMMENTS);
     }
 
-    return array;
+    return comments;
   }
 
   function generatePictureData(index) {
