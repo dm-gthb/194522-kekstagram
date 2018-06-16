@@ -147,7 +147,7 @@
   detailedPictureCommentsCount.classList.add('visually-hidden');
   detailedPictureLoadComments.classList.add('visually-hidden');
 
-  function detailedPictureEscPressHandler (evt) {
+  function detailedPictureEscPressHandler(evt) {
     if (evt.keyCode === ESC_KEY && evt.target.tagName !== 'INPUT') {
       hideDetailedPicture();
     }
@@ -183,5 +183,62 @@
     if (evt.keyCode === ENTER_KEY) {
       hideDetailedPicture();
     }
+  });
+
+//  image processing
+  var imgUploadElement = document.querySelector('#upload-file');
+  var processingSection = document.querySelector('.img-upload__overlay');
+  var processedImage = document.querySelector('.img-upload__preview img');
+  var effectsList = processingSection.querySelector('.effects__list');
+  var effectScale = processingSection.querySelector('.img-upload__scale');
+
+  effectScale.style.opacity = 0;
+
+  function processingSectionEscPressHandler(evt) {
+    if (evt.keyCode === ESC_KEY) {
+      hideProcessingSection();
+    }
+  }
+
+  function showProcessingSection() {
+    processingSection.classList.remove('hidden');
+    document.addEventListener('keydown', processingSectionEscPressHandler);
+  }
+
+  function hideProcessingSection() {
+    processingSection.classList.add('hidden');
+    document.removeEventListener('keydown', processingSectionEscPressHandler);
+    imgUploadElement.value = '';
+  }
+
+  function activateEffect(evt) {
+    for (var i = 0; i < processedImage.classList.length; i++) {
+      processedImage.classList.remove(processedImage.classList[i]);
+    }
+    var targetElement = evt.target;
+
+    while (targetElement.tagName !== 'UL') {
+      if (targetElement.tagName === 'LI') {
+        var effectName = targetElement.firstElementChild.value;
+        var effectClass = 'effects__preview--' + effectName;
+        processedImage.classList.add(effectClass);
+        if (effectName !== 'none') {
+          effectScale.style.opacity = 1;
+        }
+
+        effectScale.style.opacity = effectName !== 'none' ? 1 : 0;
+        return;
+      }
+      targetElement = targetElement.parentNode;
+    }
+  }
+
+  imgUploadElement.addEventListener('change', function () {
+    showProcessingSection();
+    // processedImage.src = 'photos/' + evt.target.files[0].name;
+  });
+
+  effectsList.addEventListener('click', function (evt) {
+    activateEffect(evt);
   });
 })();
