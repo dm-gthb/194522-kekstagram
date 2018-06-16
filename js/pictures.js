@@ -147,6 +147,8 @@
   detailedPictureCommentsCount.classList.add('visually-hidden');
   detailedPictureLoadComments.classList.add('visually-hidden');
 
+
+// SHOW/HIDE DETAILED PICTURE
   function detailedPictureEscPressHandler(evt) {
     if (evt.keyCode === ESC_KEY && evt.target.tagName !== 'INPUT') {
       hideDetailedPicture();
@@ -185,7 +187,7 @@
     }
   });
 
-//  image processing
+//IMAGE PROCESSING
   var imgUploadElement = document.querySelector('#upload-file');
   var processingSection = document.querySelector('.img-upload__overlay');
   var processedImage = document.querySelector('.img-upload__preview img');
@@ -240,5 +242,23 @@
 
   effectsList.addEventListener('click', function (evt) {
     activateEffect(evt);
+  });
+
+
+// PHOTO EFFECT LEVEL CONTROLLER
+  var effectControllerPin = processingSection.querySelector('.scale__pin');
+
+  function getPercent(current, max) {
+    return parseInt(current * 100 / max, 10);
+  }
+
+  function getEffectControllerPinPersentPositionLeft() {
+    var effectControllerPinPositionLeft = effectControllerPin.offsetLeft;
+    var scaleWidth = effectControllerPin.offsetParent.offsetWidth;
+    return getPercent(effectControllerPinPositionLeft, scaleWidth);
+  }
+
+  effectControllerPin.addEventListener('mouseup', function () {
+    getEffectControllerPinPersentPositionLeft();
   });
 })();
