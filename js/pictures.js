@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var ENTER_KEY = 13;
+  var ESC_KEY = 27;
   var PICTURES_ITEMS_QUANTITY = 25;
   var TEST_COMMENTS = [
     'Всё отлично!',
@@ -25,6 +27,8 @@
   var detailedPictureContainer = document.querySelector('.big-picture');
   var detailedPictureCommentsCount = detailedPictureContainer.querySelector('.social__comment-count');
   var detailedPictureLoadComments = detailedPictureContainer.querySelector('.social__loadmore');
+  // var previewPictures = document.querySelectorAll('.picture__img');
+  var closeDetailedPictureButton = detailedPictureContainer.querySelector('.big-picture__cancel');
 
   function getRandomNum(min, max) {
     return Math.floor(min + Math.random() * (max - min + 1));
@@ -139,8 +143,45 @@
 
   generatePictures(PICTURES_ITEMS_QUANTITY);
   renderPreviewPictures(picturesItems);
-  detailedPictureContainer.classList.remove('hidden');
   renderDetailedPicture(picturesItems[0]);
   detailedPictureCommentsCount.classList.add('visually-hidden');
   detailedPictureLoadComments.classList.add('visually-hidden');
+
+  function detailedPictureEscPressHandler (evt) {
+    if (evt.keyCode === ESC_KEY && evt.target.tagName !== 'INPUT') {
+      hideDetailedPicture();
+    }
+  }
+
+  function showDetailedPicture() {
+    detailedPictureContainer.classList.remove('hidden');
+    document.addEventListener('keydown', detailedPictureEscPressHandler);
+  }
+
+  function hideDetailedPicture() {
+    detailedPictureContainer.classList.add('hidden');
+    document.removeEventListener('keydown', detailedPictureEscPressHandler);
+  }
+
+  previewPicturesContainer.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('picture__img')) {
+      showDetailedPicture();
+    }
+  });
+
+  previewPicturesContainer.addEventListener('keydown', function (evt) {
+    if (evt.target.classList.contains('picture__link') && evt.keyCode === ENTER_KEY) {
+      showDetailedPicture();
+    }
+  });
+
+  closeDetailedPictureButton.addEventListener('click', function () {
+    hideDetailedPicture();
+  });
+
+  closeDetailedPictureButton.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === ENTER_KEY) {
+      hideDetailedPicture();
+    }
+  });
 })();
