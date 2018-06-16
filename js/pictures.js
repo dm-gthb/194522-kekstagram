@@ -189,27 +189,28 @@
 
 //IMAGE PROCESSING
   var imgUploadElement = document.querySelector('#upload-file');
-  var processingSection = document.querySelector('.img-upload__overlay');
+  var effectsSection = document.querySelector('.img-upload__overlay');
   var processedImage = document.querySelector('.img-upload__preview img');
-  var effectsList = processingSection.querySelector('.effects__list');
-  var effectScale = processingSection.querySelector('.img-upload__scale');
+  var effectsList = effectsSection.querySelector('.effects__list');
+  var effectScale = effectsSection.querySelector('.img-upload__scale');
+  var effectsSectionClose = effectsSection.querySelector('.img-upload__cancel');
 
   effectScale.style.opacity = 0;
 
-  function processingSectionEscPressHandler(evt) {
+  function effectsSectionEscPressHandler(evt) {
     if (evt.keyCode === ESC_KEY) {
-      hideProcessingSection();
+      hideEffectsSection();
     }
   }
 
-  function showProcessingSection() {
-    processingSection.classList.remove('hidden');
-    document.addEventListener('keydown', processingSectionEscPressHandler);
+  function showEffectsSection() {
+    effectsSection.classList.remove('hidden');
+    document.addEventListener('keydown', effectsSectionEscPressHandler);
   }
 
-  function hideProcessingSection() {
-    processingSection.classList.add('hidden');
-    document.removeEventListener('keydown', processingSectionEscPressHandler);
+  function hideEffectsSection() {
+    effectsSection.classList.add('hidden');
+    document.removeEventListener('keydown', effectsSectionEscPressHandler);
     imgUploadElement.value = '';
   }
 
@@ -236,8 +237,18 @@
   }
 
   imgUploadElement.addEventListener('change', function () {
-    showProcessingSection();
+    showEffectsSection();
     // processedImage.src = 'photos/' + evt.target.files[0].name;
+  });
+
+  effectsSectionClose.addEventListener('click', function () {
+    hideEffectsSection();
+  });
+
+  effectsSectionClose.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === ENTER_KEY) {
+      hideEffectsSection();
+    }
   });
 
   effectsList.addEventListener('click', function (evt) {
@@ -246,7 +257,7 @@
 
 
 // PHOTO EFFECT LEVEL CONTROLLER
-  var effectControllerPin = processingSection.querySelector('.scale__pin');
+  var effectControllerPin = effectsSection.querySelector('.scale__pin');
 
   function getPercent(current, max) {
     return parseInt(current * 100 / max, 10);
