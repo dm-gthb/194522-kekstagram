@@ -224,7 +224,7 @@
   }
 
   function effectsSectionEscPressHandler(evt) {
-    if (evt.keyCode === ESC_KEY) {
+    if (evt.keyCode === ESC_KEY && evt.target.tagName !== 'INPUT' && evt.target.tagName !== 'TEXTAREA') {
       hideEffectsSection();
     }
   }
