@@ -63,30 +63,34 @@
     return picturesItems;
   }
 
+  function renderPreviewPictureComments(pictureObject) {
+    var commentElement = document.createElement('span');
+    commentElement.classList.add('picture__stat');
+    commentElement.classList.add('picture__stat--comments');
+    commentElement.textContent = pictureObject.comments;
+    return commentElement;
+  }
+
+  function renderPreviewPicture(pictureObject) {
+    var previewPicture = previewPictureTemplate.cloneNode(true);
+    var previewPictureImg = previewPicture.querySelector('.picture__img');
+    var previewPictureLikes = previewPicture.querySelector('.picture__stat--likes');
+    var previewPictureComments = pictureObject.comments;
+    var firstComment = previewPicture.querySelector('.picture__stat--comments:first-child');
+
+    previewPictureImg.src = pictureObject.url;
+    previewPictureLikes.textContent = pictureObject.likes;
+    firstComment.textContent = previewPictureComments[0];
+    renderPreviewPictureComments(pictureObject);
+
+    return previewPicture;
+  }
+
+
   function renderPreviewPictures(picturesToRender) {
-
-    function renderPreviewPicturesComments() {
-      for (var j = 1; j < previewPictureComments.length; j++) {
-        var commentElement = document.createElement('span');
-        commentElement.classList.add('picture__stat');
-        commentElement.classList.add('picture__stat--comments');
-        commentElement.textContent = previewPictureComments[j];
-        previewPicture.querySelector('.picture__stats').insertBefore(commentElement, previewPictureLikes);
-      }
-    }
-
     for (var i = 0; i < picturesToRender.length; i++) {
-      var previewPicture = previewPictureTemplate.cloneNode(true);
-      var previewPictureImg = previewPicture.querySelector('.picture__img');
-      var previewPictureLikes = previewPicture.querySelector('.picture__stat--likes');
-      var previewPictureComments = picturesToRender[i].comments;
-      var firstComment = previewPicture.querySelector('.picture__stat--comments:first-child');
-      previewPictureImg.src = picturesToRender[i].url;
-      previewPictureLikes.textContent = picturesToRender[i].likes;
-      firstComment.textContent = previewPictureComments[0];
-      renderPreviewPicturesComments();
-
-      fragment.appendChild(previewPicture);
+      var newPreviewPicture = renderPreviewPicture(picturesToRender[i]);
+      fragment.appendChild(newPreviewPicture);
     }
 
     previewPicturesContainer.appendChild(fragment);
