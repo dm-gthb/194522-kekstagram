@@ -20,6 +20,9 @@
     'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
     'Вот это тачка!'
   ];
+  var SCALE_MIN_VALUE = 25;
+  var SCALE_MAX_VALUE = 100;
+  var SCALE_STEP_VALUE = 25;
   var fragment = document.createDocumentFragment();
   var picturesItems = [];
   var previewPicturesContainerElement = document.querySelector('.pictures');
@@ -28,6 +31,18 @@
   var detailedPictureCommentsCountElement = detailedPictureContainerElement.querySelector('.social__comment-count');
   var detailedPictureLoadCommentsElement = detailedPictureContainerElement.querySelector('.social__loadmore');
   var closeDetailedPictureElement = detailedPictureContainerElement.querySelector('.big-picture__cancel');
+  var imgUploadElement = document.querySelector('#upload-file');
+  var effectsSectionElement = document.querySelector('.img-upload__overlay');
+  var processedImageContainerElement = effectsSectionElement.querySelector('.img-upload__preview');
+  var processedImageElement = effectsSectionElement.querySelector('.img-upload__preview img');
+  var effectsListElement = effectsSectionElement.querySelector('.effects__list');
+  var effectScaleElement = effectsSectionElement.querySelector('.img-upload__scale');
+  var effectsSectionCloseElement = effectsSectionElement.querySelector('.img-upload__cancel');
+  var scalePlusElement = effectsSectionElement.querySelector('.resize__control--plus');
+  var scaleMinusElement = effectsSectionElement.querySelector('.resize__control--minus');
+  var scaleValueElement = effectsSectionElement.querySelector('.resize__control--value');
+  var scaleValueNum = parseInt(scaleValueElement.value, 10);
+  var effectControlElement = effectsSectionElement.querySelector('.scale__pin');
 
   function getRandomNum(min, max) {
     return Math.floor(min + Math.random() * (max - min + 1));
@@ -90,7 +105,6 @@
     return previewPictureElement;
   }
 
-
   function renderPreviewPictures(picturesToRender) {
     for (var i = 0; i < picturesToRender.length; i++) {
       var newPreviewPicture = renderPreviewPicture(picturesToRender[i]);
@@ -100,13 +114,6 @@
     previewPicturesContainerElement.appendChild(fragment);
   }
 
-  generatePictures(PICTURES_ITEMS_QUANTITY);
-  renderPreviewPictures(picturesItems);
-  detailedPictureCommentsCountElement.classList.add('visually-hidden');
-  detailedPictureLoadCommentsElement.classList.add('visually-hidden');
-
-
-  // RENDER & SHOW / HIDE DETAILED PICTURE
   function showDetailedPicture() {
     detailedPictureContainerElement.classList.remove('hidden');
     document.addEventListener('keydown', detailedPictureEscPressHandler);
@@ -190,43 +197,6 @@
     }
   }
 
-  previewPicturesContainerElement.addEventListener('click', function (evt) {
-    previewPictureClickHandler(evt);
-  });
-
-  // previewPicturesContainerElement.addEventListener('keydown', function (evt) {
-  //   if (evt.target.classList.contains('picture__link') && evt.keyCode === ENTER_KEY) {
-  //     showDetailedPicture();
-  //   }
-  // });
-
-  closeDetailedPictureElement.addEventListener('click', function () {
-    hideDetailedPicture();
-  });
-
-  closeDetailedPictureElement.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ENTER_KEY) {
-      hideDetailedPicture();
-    }
-  });
-
-  // IMAGE PROCESSING
-  var SCALE_MIN_VALUE = 25;
-  var SCALE_MAX_VALUE = 100;
-  var SCALE_STEP_VALUE = 25;
-  var imgUploadElement = document.querySelector('#upload-file');
-  var effectsSectionElement = document.querySelector('.img-upload__overlay');
-  var processedImageContainerElement = effectsSectionElement.querySelector('.img-upload__preview');
-  var processedImageElement = effectsSectionElement.querySelector('.img-upload__preview img');
-  var effectsListElement = effectsSectionElement.querySelector('.effects__list');
-  var effectScaleElement = effectsSectionElement.querySelector('.img-upload__scale');
-  var effectsSectionCloseElement = effectsSectionElement.querySelector('.img-upload__cancel');
-  var scalePlusElement = effectsSectionElement.querySelector('.resize__control--plus');
-  var scaleMinusElement = effectsSectionElement.querySelector('.resize__control--minus');
-  var scaleValueElement = effectsSectionElement.querySelector('.resize__control--value');
-  var scaleValueNum = parseInt(scaleValueElement.value, 10);
-
-
   function initBaseProperties() {
     effectScaleElement.classList.add('hidden');
     if (scaleValueNum === 100) {
@@ -300,9 +270,32 @@
     processedImageContainerElement.style.transform = scaleStyleValueString;
   }
 
+  function getPercent(current, max) {
+    return parseInt(current * 100 / max, 10);
+  }
+
+  function getEffectControlPersentPositionLeft() {
+    var effectControlPositionLeft = effectControlElement.offsetLeft;
+    var scaleWidth = effectControlElement.offsetParent.offsetWidth;
+    return getPercent(effectControlPositionLeft, scaleWidth);
+  }
+
+  previewPicturesContainerElement.addEventListener('click', function (evt) {
+    previewPictureClickHandler(evt);
+  });
+
+  closeDetailedPictureElement.addEventListener('click', function () {
+    hideDetailedPicture();
+  });
+
+  closeDetailedPictureElement.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === ENTER_KEY) {
+      hideDetailedPicture();
+    }
+  });
+
   imgUploadElement.addEventListener('change', function () {
     showEffectsSection();
-    // processedImageElement.src = 'photos/' + evt.target.files[0].name;
   });
 
   effectsSectionCloseElement.addEventListener('click', function () {
@@ -327,20 +320,12 @@
     scaleMinusElementClickHandler();
   });
 
-  // PHOTO EFFECT LEVEL CONTROLLER
-  var effectControlElement = effectsSectionElement.querySelector('.scale__pin');
-
-  function getPercent(current, max) {
-    return parseInt(current * 100 / max, 10);
-  }
-
-  function getEffectControlPersentPositionLeft() {
-    var effectControlPositionLeft = effectControlElement.offsetLeft;
-    var scaleWidth = effectControlElement.offsetParent.offsetWidth;
-    return getPercent(effectControlPositionLeft, scaleWidth);
-  }
-
   effectControlElement.addEventListener('mouseup', function () {
     getEffectControlPersentPositionLeft();
   });
+
+  generatePictures(PICTURES_ITEMS_QUANTITY);
+  renderPreviewPictures(picturesItems);
+  detailedPictureCommentsCountElement.classList.add('visually-hidden');
+  detailedPictureLoadCommentsElement.classList.add('visually-hidden');
 })();
