@@ -211,6 +211,9 @@
   });
 
   // IMAGE PROCESSING
+  var SCALE_MIN_VALUE = 25;
+  var SCALE_MAX_VALUE = 100;
+  var SCALE_STEP_VALUE = 25;
   var imgUploadElement = document.querySelector('#upload-file');
   var effectsSectionElement = document.querySelector('.img-upload__overlay');
   var processedImageContainerElement = effectsSectionElement.querySelector('.img-upload__preview');
@@ -272,10 +275,10 @@
   }
 
   function scalePlusElementClickHandler() {
-    if (scaleValueNum < 100) {
-      scaleValueNum += 25;
+    if (scaleValueNum < SCALE_MAX_VALUE) {
+      scaleValueNum += SCALE_STEP_VALUE;
       scaleMinusElement.disabled = false;
-      if (scaleValueNum === 100) {
+      if (scaleValueNum === SCALE_MAX_VALUE) {
         scalePlusElement.setAttribute('disabled', true);
       }
       scaleValueElement.value = scaleValueNum + '%';
@@ -284,11 +287,11 @@
   }
 
   function scaleMinusElementClickHandler() {
-    if (scaleValueNum > 25) {
-      scaleValueNum -= 25;
+    if (scaleValueNum > SCALE_MIN_VALUE) {
+      scaleValueNum -= SCALE_STEP_VALUE;
       scaleValueElement.value = scaleValueNum + '%';
       scalePlusElement.disabled = false;
-      if (scaleValueNum === 25) {
+      if (scaleValueNum === SCALE_MIN_VALUE) {
         scaleMinusElement.setAttribute('disabled', true);
       }
       addScaleStyle();
