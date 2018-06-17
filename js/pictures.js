@@ -205,12 +205,23 @@
 //IMAGE PROCESSING
   var imgUploadElement = document.querySelector('#upload-file');
   var effectsSection = document.querySelector('.img-upload__overlay');
-  var processedImage = document.querySelector('.img-upload__preview img');
+  var processedImageContainer = effectsSection.querySelector('.img-upload__preview');
+  var processedImage = effectsSection.querySelector('.img-upload__preview img');
   var effectsList = effectsSection.querySelector('.effects__list');
   var effectScale = effectsSection.querySelector('.img-upload__scale');
   var effectsSectionClose = effectsSection.querySelector('.img-upload__cancel');
+  var scalePlusElement = effectsSection.querySelector('.resize__control--plus');
+  var scaleMinusElement = effectsSection.querySelector('.resize__control--minus');
+  var scaleValueElement = effectsSection.querySelector('.resize__control--value');
+  var scaleValueNum = parseInt(scaleValueElement.value, 10);
 
-  effectScale.classList.add('hidden');
+
+  function initBaseProperties() {
+    effectScale.classList.add('hidden');
+    if (scaleValueNum === 100) {
+      scalePlusElement.setAttribute('disabled', true);
+    }
+  }
 
   function effectsSectionEscPressHandler(evt) {
     if (evt.keyCode === ESC_KEY) {
@@ -220,6 +231,7 @@
 
   function showEffectsSection() {
     effectsSection.classList.remove('hidden');
+    initBaseProperties();
     document.addEventListener('keydown', effectsSectionEscPressHandler);
   }
 
@@ -252,6 +264,36 @@
     }
   }
 
+  function scalePlusElementClickHandler() {
+    if (scaleValueNum < 100) {
+      scaleValueNum += 25;
+      scaleMinusElement.disabled = false;
+      if (scaleValueNum === 100) {
+        scalePlusElement.setAttribute('disabled', true);
+      }
+      scaleValueElement.value = scaleValueNum + '%';
+      addScaleStyle();
+    }
+  }
+
+  function scaleMinusElementClickHandler() {
+    if (scaleValueNum > 25) {
+      scaleValueNum -= 25;
+      scaleValueElement.value = scaleValueNum + '%';
+      scalePlusElement.disabled = false;
+      if (scaleValueNum === 25) {
+        scaleMinusElement.setAttribute('disabled', true);
+      }
+      addScaleStyle();
+    }
+  }
+
+  function addScaleStyle() {
+    var scaleStyleValue = scaleValueNum / 100;
+    var scaleStyleValueString = 'scale' + '(' + scaleStyleValue + ')';
+    processedImageContainer.style.transform = scaleStyleValueString;
+  }
+
   imgUploadElement.addEventListener('change', function () {
     showEffectsSection();
     // processedImage.src = 'photos/' + evt.target.files[0].name;
@@ -271,6 +313,13 @@
     activateEffect(evt);
   });
 
+  scalePlusElement.addEventListener('click', function () {
+    scalePlusElementClickHandler();
+  });
+
+  scaleMinusElement.addEventListener('click', function () {
+    scaleMinusElementClickHandler();
+  });
 
 // PHOTO EFFECT LEVEL CONTROLLER
   var effectControl = effectsSection.querySelector('.scale__pin');
