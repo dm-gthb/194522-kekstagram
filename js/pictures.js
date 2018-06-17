@@ -273,19 +273,19 @@
 
 
 // PHOTO EFFECT LEVEL CONTROLLER
-  var effectControllerPin = effectsSection.querySelector('.scale__pin');
+  var effectControl = effectsSection.querySelector('.scale__pin');
 
   function getPercent(current, max) {
     return parseInt(current * 100 / max, 10);
   }
 
-  function getEffectControllerPinPersentPositionLeft() {
-    var effectControllerPinPositionLeft = effectControllerPin.offsetLeft;
-    var scaleWidth = effectControllerPin.offsetParent.offsetWidth;
-    return getPercent(effectControllerPinPositionLeft, scaleWidth);
+  function getEffectControlPersentPositionLeft() {
+    var effectControlPositionLeft = effectControl.offsetLeft;
+    var scaleWidth = effectControl.offsetParent.offsetWidth;
+    return getPercent(effectControlPositionLeft, scaleWidth);
   }
 
-  effectControllerPin.addEventListener('mouseup', function () {
-    getEffectControllerPinPersentPositionLeft();
+  effectControl.addEventListener('mouseup', function () {
+    getEffectControlPersentPositionLeft();
   });
 })();
