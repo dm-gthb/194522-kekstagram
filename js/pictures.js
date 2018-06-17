@@ -235,12 +235,11 @@
 
   function addScaleStyle() {
     var scaleStyleValue = scaleValueNum / 100;
-    var scaleStyleValueString = 'scale' + '(' + scaleStyleValue + ')';
-    processedImageContainerElement.style.transform = scaleStyleValueString;
+    processedImageContainerElement.style.transform = 'scale' + '(' + scaleStyleValue + ')';
   }
 
   function getPercent(current, max) {
-    return parseInt(current * 100 / max, 10);
+    return current * 100 / max;
   }
 
   function getEffectControlPersentPositionLeft() {
