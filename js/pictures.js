@@ -63,25 +63,29 @@
     return picturesItems;
   }
 
-  function renderPreviewPictureComments(pictureObject) {
+  function renderPreviewPictureComments(commentToRender) {
     var commentElement = document.createElement('span');
     commentElement.classList.add('picture__stat');
     commentElement.classList.add('picture__stat--comments');
-    commentElement.textContent = pictureObject.comments;
+    commentElement.textContent = commentToRender;
     return commentElement;
   }
 
-  function renderPreviewPicture(pictureObject) {
+  function renderPreviewPicture(pictureToRender) {
     var previewPictureElement = previewPictureTemplateElement.cloneNode(true);
     var previewPictureImgElement = previewPictureElement.querySelector('.picture__img');
     var previewPictureLikesElement = previewPictureElement.querySelector('.picture__stat--likes');
-    var previewPictureComments = pictureObject.comments;
+    var previewPictureComments = pictureToRender.comments;
     var firstCommentElement = previewPictureElement.querySelector('.picture__stat--comments:first-child');
 
-    previewPictureImgElement.src = pictureObject.url;
-    previewPictureLikesElement.textContent = pictureObject.likes;
+    previewPictureImgElement.src = pictureToRender.url;
+    previewPictureLikesElement.textContent = pictureToRender.likes;
     firstCommentElement.textContent = previewPictureComments[0];
-    renderPreviewPictureComments(pictureObject);
+
+    for (var i = 1; i < previewPictureComments.length; i++) {
+      var newComment = renderPreviewPictureComments(previewPictureComments[i]);
+      previewPictureElement.querySelector('.picture__stats').insertBefore(newComment, previewPictureLikesElement);
+    }
 
     return previewPictureElement;
   }
@@ -324,7 +328,7 @@
     scaleMinusElementClickHandler();
   });
 
-// PHOTO EFFECT LEVEL CONTROLLER
+  // PHOTO EFFECT LEVEL CONTROLLER
   var effectControlElement = effectsSectionElement.querySelector('.scale__pin');
 
   function getPercent(current, max) {
