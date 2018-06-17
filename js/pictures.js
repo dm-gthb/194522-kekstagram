@@ -86,6 +86,11 @@
     previewPictureImgElement.src = pictureToRender.url;
     previewPictureLikesElement.textContent = pictureToRender.likes;
     previewPictureCommentsQuantityElement.textContent = pictureToRender.comments.length;
+
+    previewPictureImgElement.addEventListener('click', function () {
+      renderDetailedPicture(pictureToRender);
+      showDetailedPicture();
+    });
     return previewPictureElement;
   }
 
@@ -114,17 +119,14 @@
     document.removeEventListener('keydown', detailedPictureEscPressHandler);
   }
 
-  function renderDetailedPicture(picturePreview) {
-    var picturePreviewUrl = picturePreview.querySelector('.picture__img').src;
-    var picturePreviewAlt = picturePreview.querySelector('.picture__img').alt;
-    var picturePreviewLikes = picturePreview.querySelector('.picture__stat--likes').textContent;
-    var picturePreviewCommentsQuantity = Number(picturePreview.querySelector('.picture__stat--comments').textContent);
+  function renderDetailedPicture(pictureToRender) {
     var detailedPictureImgElement = detailedPictureContainerElement.querySelector('.big-picture__img img');
     var detailedPictureLikesElement = detailedPictureContainerElement.querySelector('.likes-count');
     var detailedPictureDescriptionElement = detailedPictureContainerElement.querySelector('.social__caption');
     var detailedPictureCommentsListElement = detailedPictureContainerElement.querySelector('.social__comments');
     var detailedPictureExampleCommentsElements = detailedPictureCommentsListElement.querySelectorAll('.social__comment');
     var detailedPictureCommentsQuantityElement = detailedPictureContainerElement.querySelector('.comments-count');
+    var pictureToRenderComments = pictureToRender.comments;
 
     function deleteExampleComments() {
       for (var i = 0; i < detailedPictureExampleCommentsElements.length; i++) {
@@ -133,7 +135,7 @@
     }
 
     function renderDetailedPictureComments() {
-      for (var i = 0; i < picturePreviewCommentsQuantity; i++) {
+      for (var i = 0; i < pictureToRenderComments.length; i++) {
         var commentElement = document.createElement('li');
         var commentAvatarElement = document.createElement('img');
         var commentTextElement = document.createElement('p');
@@ -144,7 +146,7 @@
         commentAvatarElement.height = '35';
         commentAvatarElement.alt = 'Аватар комментатора фотографии';
         commentTextElement.classList.add('social__text');
-        commentTextElement.textContent = generateRandomComments(1);
+        commentTextElement.textContent = pictureToRenderComments[i];
 
         commentElement.appendChild(commentAvatarElement);
         commentElement.appendChild(commentTextElement);
@@ -152,27 +154,16 @@
       }
     }
 
-    detailedPictureImgElement.src = picturePreviewUrl;
-    detailedPictureLikesElement.textContent = picturePreviewLikes;
-    detailedPictureDescriptionElement.textContent = picturePreviewAlt;
-    detailedPictureCommentsQuantityElement.textContent = picturePreviewCommentsQuantity;
+    detailedPictureImgElement.src = pictureToRender.url;
+    detailedPictureLikesElement.textContent = pictureToRender.likes;
+    detailedPictureDescriptionElement.textContent = pictureToRender.description;
+    detailedPictureCommentsQuantityElement.textContent = pictureToRenderComments.length;
 
     if (detailedPictureExampleCommentsElements) {
       deleteExampleComments();
     }
 
     renderDetailedPictureComments();
-  }
-
-  function previewPictureClickHandler(evt) {
-    var targetElement = evt.target;
-    while (targetElement.tagName !== 'SECTION') {
-      if (targetElement.classList.contains('picture__link')) {
-        renderDetailedPicture(targetElement);
-        showDetailedPicture();
-      }
-      targetElement = targetElement.parentNode;
-    }
   }
 
   function initBaseProperties() {
@@ -257,10 +248,6 @@
     var scaleWidth = effectControlElement.offsetParent.offsetWidth;
     return getPercent(effectControlPositionLeft, scaleWidth);
   }
-
-  previewPicturesContainerElement.addEventListener('click', function (evt) {
-    previewPictureClickHandler(evt);
-  });
 
   closeDetailedPictureElement.addEventListener('click', function () {
     hideDetailedPicture();
