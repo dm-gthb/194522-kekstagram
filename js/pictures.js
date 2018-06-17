@@ -78,30 +78,14 @@
     return picturesItems;
   }
 
-  function renderPreviewPictureComments(commentToRender) {
-    var commentElement = document.createElement('span');
-    commentElement.classList.add('picture__stat');
-    commentElement.classList.add('picture__stat--comments');
-    commentElement.textContent = commentToRender;
-    return commentElement;
-  }
-
   function renderPreviewPicture(pictureToRender) {
     var previewPictureElement = previewPictureTemplateElement.cloneNode(true);
     var previewPictureImgElement = previewPictureElement.querySelector('.picture__img');
     var previewPictureLikesElement = previewPictureElement.querySelector('.picture__stat--likes');
-    var previewPictureComments = pictureToRender.comments;
-    var firstCommentElement = previewPictureElement.querySelector('.picture__stat--comments:first-child');
-
+    var previewPictureCommentsQuantityElement = previewPictureElement.querySelector('.picture__stat--comments');
     previewPictureImgElement.src = pictureToRender.url;
     previewPictureLikesElement.textContent = pictureToRender.likes;
-    firstCommentElement.textContent = previewPictureComments[0];
-
-    for (var i = 1; i < previewPictureComments.length; i++) {
-      var newComment = renderPreviewPictureComments(previewPictureComments[i]);
-      previewPictureElement.querySelector('.picture__stats').insertBefore(newComment, previewPictureLikesElement);
-    }
-
+    previewPictureCommentsQuantityElement.textContent = pictureToRender.comments.length;
     return previewPictureElement;
   }
 
@@ -134,12 +118,7 @@
     var picturePreviewUrl = picturePreview.querySelector('.picture__img').src;
     var picturePreviewAlt = picturePreview.querySelector('.picture__img').alt;
     var picturePreviewLikes = picturePreview.querySelector('.picture__stat--likes').textContent;
-    var picturePreviewCommentsContainers = picturePreview.querySelectorAll('.picture__stat--comments');
-    var picturePreviewComments = [];
-    for (var j = 0; j < picturePreviewCommentsContainers.length; j++) {
-      picturePreviewComments[j] = picturePreviewCommentsContainers[j].textContent;
-    }
-
+    var picturePreviewCommentsQuantity = Number(picturePreview.querySelector('.picture__stat--comments').textContent);
     var detailedPictureImgElement = detailedPictureContainerElement.querySelector('.big-picture__img img');
     var detailedPictureLikesElement = detailedPictureContainerElement.querySelector('.likes-count');
     var detailedPictureDescriptionElement = detailedPictureContainerElement.querySelector('.social__caption');
@@ -154,7 +133,7 @@
     }
 
     function renderDetailedPictureComments() {
-      for (var i = 0; i < picturePreviewComments.length; i++) {
+      for (var i = 0; i < picturePreviewCommentsQuantity; i++) {
         var commentElement = document.createElement('li');
         var commentAvatarElement = document.createElement('img');
         var commentTextElement = document.createElement('p');
@@ -165,11 +144,10 @@
         commentAvatarElement.height = '35';
         commentAvatarElement.alt = 'Аватар комментатора фотографии';
         commentTextElement.classList.add('social__text');
-        commentTextElement.textContent = picturePreviewComments[i];
+        commentTextElement.textContent = generateRandomComments(1);
 
         commentElement.appendChild(commentAvatarElement);
         commentElement.appendChild(commentTextElement);
-
         detailedPictureCommentsListElement.appendChild(commentElement);
       }
     }
@@ -177,7 +155,7 @@
     detailedPictureImgElement.src = picturePreviewUrl;
     detailedPictureLikesElement.textContent = picturePreviewLikes;
     detailedPictureDescriptionElement.textContent = picturePreviewAlt;
-    detailedPictureCommentsQuantityElement.textContent = picturePreviewComments.length;
+    detailedPictureCommentsQuantityElement.textContent = picturePreviewCommentsQuantity;
 
     if (detailedPictureExampleCommentsElements) {
       deleteExampleComments();
