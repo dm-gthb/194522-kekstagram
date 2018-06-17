@@ -263,11 +263,7 @@
         var effectName = targetElement.firstElementChild.value;
         var effectClass = 'effects__preview--' + effectName;
         processedImageElement.classList.add(effectClass);
-        if (effectName === 'none') {
-          effectScaleElement.classList.add('hidden');
-        } else {
-          effectScaleElement.classList.remove('hidden');
-        }
+        effectScaleElement.classList.toggle('hidden', effectName === 'none');
         return;
       }
       targetElement = targetElement.parentNode;
