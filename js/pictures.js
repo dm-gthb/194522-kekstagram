@@ -301,15 +301,14 @@
 
       if (tag[0] === '#' && tag.length === 1) {
         target.setCustomValidity('хеш-тег не может состоять только из одной решётки');
-      } else if (tag[tag.length - 1] === ',') {
-        target.setCustomValidity('хэш-теги должны быть разделены пробелами');
       } else if (tag[0] !== '#' && tag.length > 1) {
         target.setCustomValidity('хэш-тег должен начинаться с символа #');
+      } else if (tag.indexOf('#', 1) !== -1) {
+        target.setCustomValidity('хэш-теги должны быть разделены пробелами');
       } else if (tag.length > 20) {
         target.setCustomValidity('максимальная длина одного хэш-тега составляет 20 символов, включая решётку');
       } else if (tag === ' ') {
         tagsArray.splice(i, 1);
-
       } else {
         target.setCustomValidity('');
       }
