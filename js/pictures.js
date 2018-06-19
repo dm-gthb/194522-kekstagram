@@ -43,8 +43,8 @@
   var scaleValueElement = effectsSectionElement.querySelector('.resize__control--value');
   var scaleValueNum = parseInt(scaleValueElement.value, 10);
   var effectControlElement = effectsSectionElement.querySelector('.scale__pin');
-  var tagsForNewPictureContainerElement = effectsSectionElement.querySelector('.text__hashtags');
-  var descriptionForNewPictureContainerElement = effectsSectionElement.querySelector('.text__description');
+  var tagsContainerForNewPictureElement = effectsSectionElement.querySelector('.text__hashtags');
+  var descriptionContainerForNewPictureElement = effectsSectionElement.querySelector('.text__description');
 
 
   function getRandomNum(min, max) {
@@ -291,50 +291,35 @@
     getEffectControlPersentPositionLeft();
   });
 
-  tagsForNewPictureContainerElement.addEventListener('input', function (evt) {
-    var target = evt.target;
-    var tagsString = target.value;
+  tagsContainerForNewPictureElement.addEventListener('input', function () {
+    var tagsString = tagsContainerForNewPictureElement.value;
+    var tags = tagsString.split(' ');
+    for (var i = 0; i < tags.length; i++) {
+      var tag = tags[i];
 
-    var tagsArray = tagsString.split(' ');
-    for (var i = 0; i < tagsArray.length; i++) {
-      var tag = tagsArray[i];
-
-      if (tag[0] === '#' && tag.length === 1) {
-        target.setCustomValidity('хеш-тег не может состоять только из одной решётки');
-      } else if (tag[0] !== '#' && tag.length > 1) {
-        target.setCustomValidity('хэш-тег должен начинаться с символа #');
-      } else if (tag.indexOf('#', 1) !== -1) {
-        target.setCustomValidity('хэш-теги должны быть разделены пробелами');
+      if (tag[0].trim() === '#' && tag.length === 1) {
+        tagsContainerForNewPictureElement.setCustomValidity('хеш-тег не может состоять только из одной решётки');
+      } else if (tag[0].trim() !== '#') {
+        tagsContainerForNewPictureElement.setCustomValidity('хэш-тег должен начинаться с символа #');
+      } else if (tag.indexOf('#', 1) > -1) {
+        tagsContainerForNewPictureElement.setCustomValidity('хэш-теги должны быть разделены пробелами');
       } else if (tag.length > 20) {
-        target.setCustomValidity('максимальная длина одного хэш-тега составляет 20 символов, включая решётку');
-      } else if (tag === ' ') {
-        tagsArray.splice(i, 1);
+        tagsContainerForNewPictureElement.setCustomValidity('максимальная длина одного хэш-тега составляет 20 символов, включая решётку');
       } else {
-        target.setCustomValidity('');
+        tagsContainerForNewPictureElement.setCustomValidity('');
       }
     }
 
-    if (tagsArray.length > 5) {
-      target.setCustomValidity('нельзя указать больше пяти хэш-тегов');
+    if (tags.length > 5) {
+      tagsContainerForNewPictureElement.setCustomValidity('нельзя указать больше пяти хэш-тегов');
     }
 
-    for (var k = 0; k < tagsArray.length - 1; k++) {
-      for (var j = k + 1; j < tagsArray.length; j++) {
-        if (tagsArray[k].toLowerCase() === tagsArray[j].toLowerCase()) {
-          target.setCustomValidity('один и тот же хэш-тег не может быть использован дважды; теги нечувствительны к регистру');
+    for (var k = 0; k < tags.length - 1; k++) {
+      for (var j = k + 1; j < tags.length; j++) {
+        if (tags[k].trim().toLowerCase() === tags[j].trim().toLowerCase()) {
+          tagsContainerForNewPictureElement.setCustomValidity('один и тот же хэш-тег не может быть использован дважды; теги нечувствительны к регистру');
         }
       }
-    }
-  });
-
-  descriptionForNewPictureContainerElement.addEventListener('input', function (evt) {
-    var target = evt.target;
-    var descriptionString = target.value;
-
-    if (descriptionString.length > 140) {
-      target.setCustomValidity('длина комментария не может составлять больше 140 символов');
-    } else {
-      target.setCustomValidity('');
     }
   });
 
