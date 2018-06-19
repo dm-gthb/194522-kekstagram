@@ -294,9 +294,9 @@
   tagsContainerForNewPictureElement.addEventListener('input', function () {
     var tagsString = tagsContainerForNewPictureElement.value;
     var tags = tagsString.split(' ');
+
     for (var i = 0; i < tags.length; i++) {
       var tag = tags[i].trim();
-      var compareTag = tags[0].trim();
 
       if (tag[0] === '#' && tag.length === 1) {
         tagsContainerForNewPictureElement.setCustomValidity('хеш-тег не может состоять только из одной решётки');
@@ -306,7 +306,7 @@
         tagsContainerForNewPictureElement.setCustomValidity('хэш-теги должны быть разделены пробелами');
       } else if (tag.length > 20) {
         tagsContainerForNewPictureElement.setCustomValidity('максимальная длина одного хэш-тега составляет 20 символов, включая решётку');
-      } else if (tags.indexOf(compareTag, 1) > -1) {
+      } else if (tags.indexOf(tags[i], i + 1) > -1) {
         tagsContainerForNewPictureElement.setCustomValidity('один и тот же хэш-тег не может быть использован дважды; теги нечувствительны к регистру');
       } else {
         tagsContainerForNewPictureElement.setCustomValidity('');
