@@ -249,15 +249,15 @@
     return getPercent(effectControlPositionLeft, scaleWidth);
   }
 
-  function checkIsSimilarElements(array) {
+  function checkUniqueElements(array) {
     var i = 0;
     while (i < array.length - 1) {
       if (array.indexOf(array[i], i + 1) > -1) {
-        return true;
+        return false;
       }
       i++;
     }
-    return false;
+    return true;
   }
 
   closeDetailedPictureElement.addEventListener('click', function () {
@@ -320,11 +320,9 @@
       }
     }
 
-    if (checkIsSimilarElements(tags)) {
+    if (!checkUniqueElements(tags)) {
       tagsContainerForNewPictureElement.setCustomValidity('один и тот же хэш-тег не может быть использован дважды; теги нечувствительны к регистру');
-    }
-
-    if (tags.length > 5) {
+    } else if (tags.length > 5) {
       tagsContainerForNewPictureElement.setCustomValidity('нельзя указать больше пяти хэш-тегов');
     }
   });
