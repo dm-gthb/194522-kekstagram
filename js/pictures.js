@@ -44,8 +44,6 @@
   var scaleValueNum = parseInt(scaleValueElement.value, 10);
   var effectControlElement = effectsSectionElement.querySelector('.scale__pin');
   var tagsContainerForNewPictureElement = effectsSectionElement.querySelector('.text__hashtags');
-  var descriptionContainerForNewPictureElement = effectsSectionElement.querySelector('.text__description');
-
 
   function getRandomNum(min, max) {
     return Math.floor(min + Math.random() * (max - min + 1));
@@ -251,6 +249,17 @@
     return getPercent(effectControlPositionLeft, scaleWidth);
   }
 
+  function checkIsSimilarElements(array) {
+    var i = 0;
+    while (i < array.length - 1) {
+      if (array.indexOf(array[i], i + 1) > -1) {
+        return true;
+      }
+      i++;
+    }
+    return false;
+  }
+
   closeDetailedPictureElement.addEventListener('click', function () {
     hideDetailedPicture();
   });
@@ -306,11 +315,13 @@
         tagsContainerForNewPictureElement.setCustomValidity('хэш-теги должны быть разделены пробелами');
       } else if (tag.length > 20) {
         tagsContainerForNewPictureElement.setCustomValidity('максимальная длина одного хэш-тега составляет 20 символов, включая решётку');
-      } else if (tags.indexOf(tags[i], i + 1) > -1) {
-        tagsContainerForNewPictureElement.setCustomValidity('один и тот же хэш-тег не может быть использован дважды; теги нечувствительны к регистру');
       } else {
         tagsContainerForNewPictureElement.setCustomValidity('');
       }
+    }
+
+    if (checkIsSimilarElements(tags)) {
+      tagsContainerForNewPictureElement.setCustomValidity('один и тот же хэш-тег не может быть использован дважды; теги нечувствительны к регистру');
     }
 
     if (tags.length > 5) {
