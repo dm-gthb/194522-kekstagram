@@ -43,6 +43,7 @@
   var scaleValueElement = effectsSectionElement.querySelector('.resize__control--value');
   var scaleValueNum = parseInt(scaleValueElement.value, 10);
   var effectControlElement = effectsSectionElement.querySelector('.scale__pin');
+  var tagsContainerForNewPictureElement = effectsSectionElement.querySelector('.text__hashtags');
 
   function getRandomNum(min, max) {
     return Math.floor(min + Math.random() * (max - min + 1));
@@ -248,6 +249,41 @@
     return getPercent(effectControlPositionLeft, scaleWidth);
   }
 
+  function validateTagsArray(tagsArray) {
+    for (var i = 0; i < tagsArray.length; i++) {
+      var tag = tagsArray[i].trim();
+
+      if (tag[0] === '#' && tag.length === 1) {
+        tagsContainerForNewPictureElement.setCustomValidity('хеш-тег не может состоять только из одной решётки');
+      } else if (tag[0] !== '#') {
+        tagsContainerForNewPictureElement.setCustomValidity('хэш-тег должен начинаться с символа #');
+      } else if (tag.indexOf('#', 1) > -1) {
+        tagsContainerForNewPictureElement.setCustomValidity('хэш-теги должны быть разделены пробелами');
+      } else if (tag.length > 20) {
+        tagsContainerForNewPictureElement.setCustomValidity('максимальная длина одного хэш-тега составляет 20 символов, включая решётку');
+      } else {
+        tagsContainerForNewPictureElement.setCustomValidity('');
+      }
+    }
+
+    if (!checkUniqueElements(tagsArray)) {
+      tagsContainerForNewPictureElement.setCustomValidity('один и тот же хэш-тег не может быть использован дважды; теги нечувствительны к регистру');
+    } else if (tagsArray.length > 5) {
+      tagsContainerForNewPictureElement.setCustomValidity('нельзя указать больше пяти хэш-тегов');
+    }
+  }
+
+  function checkUniqueElements(array) {
+    var i = 0;
+    while (i < array.length - 1) {
+      if (array.indexOf(array[i], i + 1) > -1) {
+        return false;
+      }
+      i++;
+    }
+    return true;
+  }
+
   closeDetailedPictureElement.addEventListener('click', function () {
     hideDetailedPicture();
   });
@@ -286,6 +322,12 @@
 
   effectControlElement.addEventListener('mouseup', function () {
     getEffectControlPersentPositionLeft();
+  });
+
+  tagsContainerForNewPictureElement.addEventListener('input', function () {
+    var tagsString = tagsContainerForNewPictureElement.value;
+    var tags = tagsString.split(' ');
+    validateTagsArray(tags);
   });
 
   generatePictures(PICTURES_ITEMS_QUANTITY);
