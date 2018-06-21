@@ -249,9 +249,12 @@
     return getPercent(effectControlPositionLeft, scaleWidth);
   }
 
-  function validateTagsArray(tagsArray) {
-    for (var i = 0; i < tagsArray.length; i++) {
-      var tag = tagsArray[i].trim();
+  function validateTags() {
+    var tagsString = tagsContainerForNewPictureElement.value;
+    var tags = tagsString.split(' ');
+
+    for (var i = 0; i < tags.length; i++) {
+      var tag = tags[i].trim();
 
       if (tag[0] === '#' && tag.length === 1) {
         tagsContainerForNewPictureElement.setCustomValidity('хеш-тег не может состоять только из одной решётки');
@@ -266,9 +269,9 @@
       }
     }
 
-    if (!checkUniqueElements(tagsArray)) {
+    if (!checkUniqueElements(tags)) {
       tagsContainerForNewPictureElement.setCustomValidity('один и тот же хэш-тег не может быть использован дважды; теги нечувствительны к регистру');
-    } else if (tagsArray.length > 5) {
+    } else if (tags.length > 5) {
       tagsContainerForNewPictureElement.setCustomValidity('нельзя указать больше пяти хэш-тегов');
     }
   }
@@ -325,9 +328,7 @@
   });
 
   tagsContainerForNewPictureElement.addEventListener('input', function () {
-    var tagsString = tagsContainerForNewPictureElement.value;
-    var tags = tagsString.split(' ');
-    validateTagsArray(tags);
+    validateTags();
   });
 
   generatePictures(PICTURES_ITEMS_QUANTITY);
