@@ -36,7 +36,9 @@
   var processedImageContainerElement = effectsSectionElement.querySelector('.img-upload__preview');
   var processedImageElement = effectsSectionElement.querySelector('.img-upload__preview img');
   var effectsListElement = effectsSectionElement.querySelector('.effects__list');
+  var selectedEffectName;
   var effectDepthContainerElement = effectsSectionElement.querySelector('.img-upload__scale');
+  var effectDepthControlElement = effectsSectionElement.querySelector('.scale__pin');
   var effectDepthLineElement = effectDepthContainerElement.querySelector('.scale__line');
   var effectDepthLineColorFillElement = effectDepthContainerElement.querySelector('.scale__level');
   var effectDepthValue = effectDepthContainerElement.querySelector('.scale__value').value;
@@ -45,7 +47,6 @@
   var scaleMinusElement = effectsSectionElement.querySelector('.resize__control--minus');
   var scaleValueElement = effectsSectionElement.querySelector('.resize__control--value');
   var scaleValueNum = parseInt(scaleValueElement.value, 10);
-  var effectDepthControlElement = effectsSectionElement.querySelector('.scale__pin');
   var tagsContainerForNewPictureElement = effectsSectionElement.querySelector('.text__hashtags');
 
   function getRandomNum(min, max) {
@@ -352,6 +353,14 @@
     validateTags();
   });
 
+  effectsListElement.addEventListener('change', function (evt) {
+    selectedEffectName = evt.target.value;
+  });
+
+  effectsListElement.addEventListener('click', function (evt) {
+    activateEffect(evt);
+  });
+
   effectDepthControlElement.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startCoords = evt.clientX;
@@ -362,25 +371,28 @@
     function effectControlMouseMoveHandler(moveEvt) {
       moveEvt.preventDefault();
       var shift = startCoords - moveEvt.clientX;
-      // console.log('min: ' + min);
-      // console.log('max: ' + max);
-      // console.log('current: ' + moveEvt.clientX);
 
       if (moveEvt.clientX > min && moveEvt.clientX < max) {
         effectDepthControlElement.style.left = effectDepthControlElement.offsetLeft - shift + 'px';
         effectDepthLineColorFillElement.style.width = getEffectControlPersentPositionLeft() + '%';
-        effectDepthValue = String(Math.floor(getEffectControlPersentPositionLeft()));
-        // console.log(effectDepthValue);
-        if (processedImageElement.classList.contains('effects__preview--chrome')) {
-          processedImageElement.style.filter = 'grayscale' + '(' + getFraction(effectDepthValue, 1) + ')';
-        } else if (processedImageElement.classList.contains('effects__preview--sepia')) {
-          processedImageElement.style.filter = 'sepia' + '(' + getFraction(effectDepthValue, 1) + ')';
-        } else if (processedImageElement.classList.contains('effects__preview--phobos')) {
-          processedImageElement.style.filter = 'blur' + '(' + getFraction(effectDepthValue, 3) + 'px' + ')';
-        } else if (processedImageElement.classList.contains('effects__preview--marvin')) {
-          processedImageElement.style.filter = 'invert' + '(' + getFraction(effectDepthValue, 100) + '%' + ')';
-        } else if (processedImageElement.classList.contains('effects__preview--heat')) {
-          processedImageElement.style.filter = 'brightness' + '(' + getFraction(effectDepthValue, 3) + ')';
+        effectDepthValue = Math.floor(getEffectControlPersentPositionLeft()).toString();
+
+        switch (selectedEffectName) {
+          case 'chrome':
+            processedImageElement.style.filter = 'grayscale' + '(' + getFraction(effectDepthValue, 1) + ')';
+            break;
+          case 'sepia':
+            processedImageElement.style.filter = 'sepia' + '(' + getFraction(effectDepthValue, 1) + ')';
+            break;
+          case 'phobos':
+            processedImageElement.style.filter = 'blur' + '(' + getFraction(effectDepthValue, 3) + 'px' + ')';
+            break;
+          case 'marvin':
+            processedImageElement.style.filter = 'invert' + '(' + getFraction(effectDepthValue, 100) + '%' + ')';
+            break;
+          case 'heat':
+            processedImageElement.style.filter = 'brightness' + '(' + getFraction(effectDepthValue, 3) + ')';
+            break;
         }
       }
 
