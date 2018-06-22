@@ -179,7 +179,7 @@
   }
 
   function effectsSectionEscPressHandler(evt) {
-    if (evt.keyCode === ESC_KEY && evt.target.tagName !== 'INPUT' && evt.target.tagName !== 'TEXTAREA') {
+    if (evt.keyCode === ESC_KEY && evt.target !== tagsContainerForNewPictureElement && evt.target.tagName !== 'TEXTAREA') {
       hideEffectsSection();
     }
   }
@@ -375,21 +375,23 @@
 
         switch (selectedEffectName) {
           case 'chrome':
-            processedImageElement.style.filter = 'grayscale' + '(' + getFraction(effectDepthValue, 1) + ')';
+            var applyedEffect = 'grayscale' + '(' + getFraction(effectDepthValue, 1) + ')';
             break;
           case 'sepia':
-            processedImageElement.style.filter = 'sepia' + '(' + getFraction(effectDepthValue, 1) + ')';
+            applyedEffect = 'sepia' + '(' + getFraction(effectDepthValue, 1) + ')';
             break;
           case 'phobos':
-            processedImageElement.style.filter = 'blur' + '(' + getFraction(effectDepthValue, 3) + 'px' + ')';
+            applyedEffect = 'blur' + '(' + getFraction(effectDepthValue, 3) + 'px' + ')';
             break;
           case 'marvin':
-            processedImageElement.style.filter = 'invert' + '(' + getFraction(effectDepthValue, 100) + '%' + ')';
+            applyedEffect = 'invert' + '(' + getFraction(effectDepthValue, 100) + '%' + ')';
             break;
           case 'heat':
-            processedImageElement.style.filter = 'brightness' + '(' + getFraction(effectDepthValue, 3) + ')';
+            applyedEffect = 'brightness' + '(' + getFraction(effectDepthValue, 3) + ')';
             break;
         }
+
+        processedImageElement.style.filter = applyedEffect;
       }
 
       startCoords = moveEvt.clientX;
