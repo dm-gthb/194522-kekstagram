@@ -357,10 +357,6 @@
     selectedEffectName = evt.target.value;
   });
 
-  effectsListElement.addEventListener('click', function (evt) {
-    activateEffect(evt);
-  });
-
   effectDepthControlElement.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startCoords = evt.clientX;
