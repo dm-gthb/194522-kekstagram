@@ -31,23 +31,23 @@
   var detailedPictureCommentsCountElement = detailedPictureContainerElement.querySelector('.social__comment-count');
   var detailedPictureLoadCommentsElement = detailedPictureContainerElement.querySelector('.social__loadmore');
   var closeDetailedPictureElement = detailedPictureContainerElement.querySelector('.big-picture__cancel');
-  var imgUploadElement = document.querySelector('#upload-file');
-  var effectsSectionElement = document.querySelector('.img-upload__overlay');
-  var processedImageContainerElement = effectsSectionElement.querySelector('.img-upload__preview');
-  var processedImageElement = effectsSectionElement.querySelector('.img-upload__preview img');
-  var effectsListElement = effectsSectionElement.querySelector('.effects__list');
+  var imgUploadSectionElement = document.querySelector('.img-upload__overlay');
+  var imgUploadInputElement = document.querySelector('#upload-file');
+  var processedImageContainerElement = imgUploadSectionElement.querySelector('.img-upload__preview');
+  var processedImageElement = imgUploadSectionElement.querySelector('.img-upload__preview img');
+  var effectsListElement = imgUploadSectionElement.querySelector('.effects__list');
   var selectedEffectName;
-  var effectDepthContainerElement = effectsSectionElement.querySelector('.img-upload__scale');
-  var effectDepthControlElement = effectsSectionElement.querySelector('.scale__pin');
+  var effectDepthContainerElement = imgUploadSectionElement.querySelector('.img-upload__scale');
+  var effectDepthControlElement = imgUploadSectionElement.querySelector('.scale__pin');
   var effectDepthLineElement = effectDepthContainerElement.querySelector('.scale__line');
   var effectDepthLineColorFillElement = effectDepthContainerElement.querySelector('.scale__level');
   var effectDepthValue = effectDepthContainerElement.querySelector('.scale__value').value;
-  var effectsSectionCloseElement = effectsSectionElement.querySelector('.img-upload__cancel');
-  var scalePlusElement = effectsSectionElement.querySelector('.resize__control--plus');
-  var scaleMinusElement = effectsSectionElement.querySelector('.resize__control--minus');
-  var scaleValueElement = effectsSectionElement.querySelector('.resize__control--value');
+  var imgUploadSectionCloseElement = imgUploadSectionElement.querySelector('.img-upload__cancel');
+  var scalePlusElement = imgUploadSectionElement.querySelector('.resize__control--plus');
+  var scaleMinusElement = imgUploadSectionElement.querySelector('.resize__control--minus');
+  var scaleValueElement = imgUploadSectionElement.querySelector('.resize__control--value');
   var scaleValueNum = parseInt(scaleValueElement.value, 10);
-  var tagsContainerForNewPictureElement = effectsSectionElement.querySelector('.text__hashtags');
+  var tagsContainerForNewPictureElement = imgUploadSectionElement.querySelector('.text__hashtags');
 
   function getRandomNum(min, max) {
     return Math.floor(min + Math.random() * (max - min + 1));
@@ -178,22 +178,22 @@
     }
   }
 
-  function effectsSectionEscPressHandler(evt) {
+  function imgUploadSectionEscPressHandler(evt) {
     if (evt.keyCode === ESC_KEY && evt.target !== tagsContainerForNewPictureElement && evt.target.tagName !== 'TEXTAREA') {
-      hideEffectsSection();
+      hideImgUploadSection();
     }
   }
 
-  function showEffectsSection() {
-    effectsSectionElement.classList.remove('hidden');
+  function showImgUploadSection() {
+    imgUploadSectionElement.classList.remove('hidden');
     initBaseProperties();
-    document.addEventListener('keydown', effectsSectionEscPressHandler);
+    document.addEventListener('keydown', imgUploadSectionEscPressHandler);
   }
 
-  function hideEffectsSection() {
-    effectsSectionElement.classList.add('hidden');
-    document.removeEventListener('keydown', effectsSectionEscPressHandler);
-    imgUploadElement.value = '';
+  function hideImgUploadSection() {
+    imgUploadSectionElement.classList.add('hidden');
+    document.removeEventListener('keydown', imgUploadSectionEscPressHandler);
+    imgUploadInputElement.value = '';
   }
 
   function activateEffect(evt) {
@@ -319,17 +319,17 @@
     }
   });
 
-  imgUploadElement.addEventListener('change', function () {
-    showEffectsSection();
+  imgUploadInputElement.addEventListener('change', function () {
+    showImgUploadSection();
   });
 
-  effectsSectionCloseElement.addEventListener('click', function () {
-    hideEffectsSection();
+  imgUploadSectionCloseElement.addEventListener('click', function () {
+    hideImgUploadSection();
   });
 
-  effectsSectionCloseElement.addEventListener('keydown', function (evt) {
+  imgUploadSectionCloseElement.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEY) {
-      hideEffectsSection();
+      hideImgUploadSection();
     }
   });
 
@@ -375,23 +375,23 @@
 
         switch (selectedEffectName) {
           case 'chrome':
-            var applyedEffect = 'grayscale' + '(' + getFraction(effectDepthValue, 1) + ')';
+            var appliedEffect = 'grayscale' + '(' + getFraction(effectDepthValue, 1) + ')';
             break;
           case 'sepia':
-            applyedEffect = 'sepia' + '(' + getFraction(effectDepthValue, 1) + ')';
+            appliedEffect = 'sepia' + '(' + getFraction(effectDepthValue, 1) + ')';
             break;
           case 'phobos':
-            applyedEffect = 'blur' + '(' + getFraction(effectDepthValue, 3) + 'px' + ')';
+            appliedEffect = 'blur' + '(' + getFraction(effectDepthValue, 3) + 'px' + ')';
             break;
           case 'marvin':
-            applyedEffect = 'invert' + '(' + getFraction(effectDepthValue, 100) + '%' + ')';
+            appliedEffect = 'invert' + '(' + getFraction(effectDepthValue, 100) + '%' + ')';
             break;
           case 'heat':
-            applyedEffect = 'brightness' + '(' + getFraction(effectDepthValue, 3) + ')';
+            appliedEffect = 'brightness' + '(' + getFraction(effectDepthValue, 3) + ')';
             break;
         }
 
-        processedImageElement.style.filter = applyedEffect;
+        processedImageElement.style.filter = appliedEffect;
       }
 
       startCoords = moveEvt.clientX;
