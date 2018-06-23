@@ -15,7 +15,7 @@
         action();
       }
     },
-    getRandomNum: function (min, max) {
+    getRandomNumber: function (min, max) {
       return Math.floor(min + Math.random() * (max - min + 1));
     },
 

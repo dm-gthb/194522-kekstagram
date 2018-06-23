@@ -10,24 +10,15 @@
   var effectDepthLineColorFillElement = effectDepthContainerElement.querySelector('.scale__level');
   var effectDepthValue = effectDepthContainerElement.querySelector('.scale__value').value;
 
-  function activateEffect(evt) {
+  function activateEffect(effectName) {
     window.util.resetAllClasses(processedImageElement);
-    var targetElement = evt.target;
-
-    while (targetElement.tagName !== 'UL') {
-      if (targetElement.tagName === 'LI') {
-        var effectName = targetElement.firstElementChild.value;
-        var effectClass = 'effects__preview--' + effectName;
-        processedImageElement.classList.add(effectClass);
-        effectDepthLineColorFillElement.style.width = '100%';
-        effectDepthControlElement.style.left = '100%';
-        effectDepthControlElement.style.zIndex = 100;
-        processedImageElement.style.filter = '';
-        effectDepthContainerElement.classList.toggle('hidden', effectName === 'none');
-        return;
-      }
-      targetElement = targetElement.parentNode;
-    }
+    var effectClass = 'effects__preview--' + effectName;
+    processedImageElement.classList.add(effectClass);
+    effectDepthLineColorFillElement.style.width = '100%';
+    effectDepthControlElement.style.left = '100%';
+    effectDepthControlElement.style.zIndex = 100;
+    processedImageElement.style.filter = '';
+    effectDepthContainerElement.classList.toggle('hidden', effectName === 'none');
   }
 
   function getEffectControlPersentPositionLeft() {
@@ -36,17 +27,13 @@
     return window.util.getPercent(effectControlPositionLeft, scaleWidth);
   }
 
-
-  effectsListElement.addEventListener('click', function (evt) {
-    activateEffect(evt);
+  effectsListElement.addEventListener('change', function (evt) {
+    selectedEffectName = evt.target.value;
+    activateEffect(selectedEffectName);
   });
 
   effectDepthControlElement.addEventListener('mouseup', function () {
     getEffectControlPersentPositionLeft();
-  });
-
-  effectsListElement.addEventListener('change', function (evt) {
-    selectedEffectName = evt.target.value;
   });
 
   effectDepthControlElement.addEventListener('mousedown', function (evt) {

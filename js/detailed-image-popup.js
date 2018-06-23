@@ -16,13 +16,6 @@
     document.removeEventListener('keydown', detailedPictureEscPressHandler);
   }
 
-  window.detailedImagePopup = {
-    showDetailedPicture: function () {
-      detailedPictureContainerElement.classList.remove('hidden');
-      document.addEventListener('keydown', detailedPictureEscPressHandler);
-    }
-  };
-
   closeDetailedPictureElement.addEventListener('click', function () {
     hideDetailedPicture();
   });
@@ -30,4 +23,11 @@
   closeDetailedPictureElement.addEventListener('keydown', function (evt) {
     window.util.isEnterEvent(evt, hideDetailedPicture);
   });
+
+  window.detailedImagePopup = {
+    show: function () {
+      detailedPictureContainerElement.classList.remove('hidden');
+      document.addEventListener('keydown', detailedPictureEscPressHandler);
+    }
+  };
 })();

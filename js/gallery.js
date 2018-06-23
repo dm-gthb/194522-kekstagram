@@ -14,5 +14,5 @@
     previewPicturesContainerElement.appendChild(fragment);
   }
 
-  renderPreviewPictures(window.generateData.generatePictures(PICTURES_ITEMS_QUANTITY));
+  renderPreviewPictures(window.data.generatePictures(PICTURES_ITEMS_QUANTITY));
 })();

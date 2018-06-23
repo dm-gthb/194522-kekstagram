@@ -19,29 +19,29 @@
   ];
   var picturesItems = [];
 
-  window.generateData = {
-    generateRandomComments: function (quantity) {
-      var comments = [];
-      var commentsAmount = window.util.getRandomNum(1, quantity);
-      for (var i = 0; i < commentsAmount; i++) {
-        comments[i] = window.util.getRandomArrayElement(TEST_COMMENTS);
-      }
+  function generateRandomComments (quantity) {
+    var comments = [];
+    var commentsAmount = window.util.getRandomNumber(1, quantity);
+    for (var i = 0; i < commentsAmount; i++) {
+      comments[i] = window.util.getRandomArrayElement(TEST_COMMENTS);
+    }
 
-      return comments;
-    },
+    return comments;
+  }
 
-    generatePictureData: function (index) {
-      return {
-        url: 'photos/' + (index + 1) + '.jpg',
-        likes: window.util.getRandomNum(15, 200),
-        comments: this.generateRandomComments(5),
-        description: window.util.getRandomArrayElement(TEST_DESCRIPTIONS)
-      };
-    },
+  function generatePictureData (index) {
+    return {
+      url: 'photos/' + (index + 1) + '.jpg',
+      likes: window.util.getRandomNumber(15, 200),
+      comments: generateRandomComments(5),
+      description: window.util.getRandomArrayElement(TEST_DESCRIPTIONS)
+    };
+  }
 
+  window.data = {
     generatePictures: function (quantity) {
       for (var i = 0; i < quantity; i++) {
-        picturesItems[i] = this.generatePictureData(i);
+        picturesItems[i] = generatePictureData(i);
       }
       return picturesItems;
     }
