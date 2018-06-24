@@ -52,7 +52,7 @@
   }
 
   window.picture = {
-    renderPreviewPicture: function (pictureToRender) {
+    renderPreview: function (pictureToRender) {
       var previewPictureElement = previewPictureTemplateElement.cloneNode(true);
       var previewPictureImgElement = previewPictureElement.querySelector('.picture__img');
       var previewPictureLikesElement = previewPictureElement.querySelector('.picture__stat--likes');

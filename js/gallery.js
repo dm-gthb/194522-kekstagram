@@ -7,7 +7,7 @@
 
   function renderPreviewPictures(picturesToRender) {
     for (var i = 0; i < picturesToRender.length; i++) {
-      var newPreviewPicture = window.picture.renderPreviewPicture(picturesToRender[i]);
+      var newPreviewPicture = window.picture.renderPreview(picturesToRender[i]);
       fragment.appendChild(newPreviewPicture);
     }
 
