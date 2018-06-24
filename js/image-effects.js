@@ -10,15 +10,15 @@
   var effectDepthLineColorFillElement = effectDepthContainerElement.querySelector('.scale__level');
   var effectDepthValue = effectDepthContainerElement.querySelector('.scale__value').value;
 
-  function activateEffect(effectName) {
+  function activateEffect() {
     window.util.resetAllClasses(processedImageElement);
-    var effectClass = 'effects__preview--' + effectName;
+    var effectClass = 'effects__preview--' + selectedEffectName;
     processedImageElement.classList.add(effectClass);
     effectDepthLineColorFillElement.style.width = '100%';
     effectDepthControlElement.style.left = '100%';
     effectDepthControlElement.style.zIndex = 100;
     processedImageElement.style.filter = '';
-    effectDepthContainerElement.classList.toggle('hidden', effectName === 'none');
+    effectDepthContainerElement.classList.toggle('hidden', selectedEffectName === 'none');
   }
 
   function getEffectControlPersentPositionLeft() {

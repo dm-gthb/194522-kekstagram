@@ -12,12 +12,16 @@
 
       if (tag[0] === '#' && tag.length === 1) {
         tagsContainerForNewPictureElement.setCustomValidity('хеш-тег не может состоять только из одной решётки');
+        break;
       } else if (tag[0] !== '#') {
         tagsContainerForNewPictureElement.setCustomValidity('хэш-тег должен начинаться с символа #');
+        break;
       } else if (tag.indexOf('#', 1) > -1) {
         tagsContainerForNewPictureElement.setCustomValidity('хэш-теги должны быть разделены пробелами');
+        break;
       } else if (tag.length > 20) {
         tagsContainerForNewPictureElement.setCustomValidity('максимальная длина одного хэш-тега составляет 20 символов, включая решётку');
+        break;
       } else {
         tagsContainerForNewPictureElement.setCustomValidity('');
       }
