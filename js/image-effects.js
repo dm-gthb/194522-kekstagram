@@ -29,7 +29,7 @@
 
   effectsListElement.addEventListener('change', function (evt) {
     selectedEffectName = evt.target.value;
-    activateEffect(selectedEffectName);
+    activateEffect();
   });
 
   effectDepthControlElement.addEventListener('mouseup', function () {
