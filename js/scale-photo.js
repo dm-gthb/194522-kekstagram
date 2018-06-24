@@ -15,19 +15,11 @@
     var flag = evt.target.classList.contains('resize__control--plus') ? 1 : -1;
     var newValue = scaleValueNum + SCALE_STEP_VALUE * flag;
     if (newValue <= SCALE_MAX_VALUE && newValue >= SCALE_MIN_VALUE) {
-      if (flag > 0) {
-        scaleMinusElement.disabled = false;
-      } else if (flag < 0) {
-        scalePlusElement.disabled = false;
-      }
+      scalePlusElement.disabled = newValue >= SCALE_MAX_VALUE;
+      scaleMinusElement.disabled = newValue <= SCALE_MIN_VALUE;
       scaleValueNum = newValue;
       scaleValueElement.value = scaleValueNum + '%';
       addScaleStyle();
-      if (scaleValueNum === SCALE_MAX_VALUE) {
-        scalePlusElement.disabled = true;
-      } else if (scaleValueNum === SCALE_MIN_VALUE) {
-        scaleMinusElement.disabled = true;
-      }
     }
   }
 
