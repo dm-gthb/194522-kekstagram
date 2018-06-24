@@ -1,13 +1,13 @@
 'use strict';
 
 (function () {
-  var tagsContainerForNewPictureElement = document.querySelector('.text__hashtags');
+  var tagsInputElement = document.querySelector('.text__hashtags');
   var imgUploadSectionElement = document.querySelector('.img-upload__overlay');
   var imgUploadInputElement = document.querySelector('#upload-file');
   var imgUploadSectionCloseElement = imgUploadSectionElement.querySelector('.img-upload__cancel');
 
   function imgUploadSectionEscPressHandler(evt) {
-    if (evt.target !== tagsContainerForNewPictureElement && evt.target.tagName !== 'TEXTAREA') {
+    if (evt.target !== tagsInputElement && evt.target.tagName !== 'TEXTAREA') {
       window.util.isEscEvent(evt, hideImgUploadSection);
     }
   }
