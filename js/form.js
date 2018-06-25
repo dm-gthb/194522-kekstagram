@@ -1,7 +1,10 @@
 'use strict';
 
 (function () {
-  var tagsInputElement = document.querySelector('.text__hashtags');
+  var imgUploadSectionElement = document.querySelector('.img-upload');
+  var imgUploadInputElement = imgUploadSectionElement.querySelector('#upload-file');
+  var form = imgUploadSectionElement.querySelector('.img-upload__form');
+  var tagsInputElement = form.querySelector('.text__hashtags');
 
   function validateTags() {
     var tagsString = tagsInputElement.value;
@@ -34,7 +37,38 @@
     }
   }
 
+  function successLoadHandler() {
+    imgUploadSectionElement.classList.add('hidden');
+    imgUploadInputElement.value = '';
+  }
+
+  function errorLoadHandler(message) {
+    var errorBox = document.createElement('div');
+    var errorText = document.createElement('p');
+    errorBox.classList.add('error-message');
+    errorBox.style.cssText = 'position: fixed; display: flex; width: 100vw; height: 100vh; z-index: 10; background: #22252A; opacity: 0.97; text-align: center;';
+    errorText.style.cssText = 'background: #fff; color: #000; margin: auto; text-transform: none; padding: 10px 50px; opacity: 1; font-size: 24px;';
+    errorText.textContent = message;
+    errorBox.appendChild(errorText);
+    document.body.insertAdjacentElement('afterbegin', errorBox);
+
+    function removeErrorBox() {
+      document.body.removeChild(errorBox);
+    }
+
+    document.addEventListener('click', removeErrorBox);
+    document.addEventListener('keydown', function (evt) {
+      window.util.isEscEvent(evt, removeErrorBox);
+    });
+  }
+
   tagsInputElement.addEventListener('input', function () {
     validateTags();
+  });
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    var data = new FormData(form);
+    window.backend.upload(data, successLoadHandler, errorLoadHandler);
   });
 })();
