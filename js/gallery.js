@@ -22,6 +22,15 @@
     errorText.textContent = message;
     errorBox.appendChild(errorText);
     document.body.insertAdjacentElement('afterbegin', errorBox);
+
+    function removeErrorBox() {
+      document.body.removeChild(errorBox);
+    }
+
+    document.addEventListener('click', removeErrorBox);
+    document.addEventListener('keydown', function (evt) {
+      window.util.isEscEvent(evt, removeErrorBox);
+    });
   }
 
   window.backend.download(renderPreviewPictures, loadErrorHandler);
