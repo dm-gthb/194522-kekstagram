@@ -47,7 +47,7 @@
     var errorText = document.createElement('p');
     errorBox.classList.add('error-message');
     errorBox.style.cssText = 'position: fixed; display: flex; width: 100vw; height: 100vh; z-index: 10; background: #22252A; opacity: 0.97; text-align: center;';
-    errorText.style.cssText = 'background: #fff; color: #000; margin: auto; text-transform: none; padding: 10px 50px; opacity: 1; font-size: 24px;';
+    errorText.style.cssText = 'background: #fff; color: #000; margin: auto; text-transform: none; padding: 10px 50px; font-size: 24px;';
     errorText.textContent = message;
     errorBox.appendChild(errorText);
     document.body.insertAdjacentElement('afterbegin', errorBox);
