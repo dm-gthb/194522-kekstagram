@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var PICTURES_ITEMS_QUANTITY = 25;
   var fragment = document.createDocumentFragment();
   var previewPicturesContainerElement = document.querySelector('.pictures');
 
@@ -14,5 +13,16 @@
     previewPicturesContainerElement.appendChild(fragment);
   }
 
-  renderPreviewPictures(window.data.generatePictures(PICTURES_ITEMS_QUANTITY));
+  function loadErrorHandler(message) {
+    var errorBox = document.createElement('div');
+    var errorText = document.createElement('p');
+    errorBox.classList.add('error-message');
+    errorBox.style.cssText = 'position: fixed; display: flex; width: 100vw; height: 100vh; z-index: 10; background: #22252A; opacity: 0.97; text-align: center;';
+    errorText.style.cssText = 'background: #fff; color: #000; margin: auto; text-transform: none; padding: 10px 50px; opacity: 1; font-size: 24px;';
+    errorText.textContent = message;
+    errorBox.appendChild(errorText);
+    document.body.insertAdjacentElement('afterbegin', errorBox);
+  }
+
+  window.backend.download(renderPreviewPictures, loadErrorHandler);
 })();
