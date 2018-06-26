@@ -43,22 +43,19 @@
   }
 
   function errorLoadHandler(message) {
-    var errorBox = document.createElement('div');
-    var errorText = document.createElement('p');
-    errorBox.classList.add('error-message');
-    errorBox.style.cssText = 'position: fixed; display: flex; width: 100vw; height: 100vh; z-index: 10; background: #22252A; opacity: 0.97; text-align: center;';
-    errorText.style.cssText = 'background: #fff; color: #000; margin: auto; text-transform: none; padding: 10px 50px; font-size: 24px;';
-    errorText.textContent = message;
-    errorBox.appendChild(errorText);
-    document.body.insertAdjacentElement('afterbegin', errorBox);
+    var errorBlock = window.util.addErrorBlock(message);
+    document.body.insertAdjacentElement('afterbegin', errorBlock);
 
-    function removeErrorBox() {
-      document.body.removeChild(errorBox);
+    function removeErrorBlock() {
+      document.body.removeChild(errorBlock);
     }
 
-    document.addEventListener('click', removeErrorBox);
+    document.addEventListener('click', function () {
+      removeErrorBlock();
+    });
+
     document.addEventListener('keydown', function (evt) {
-      window.util.isEscEvent(evt, removeErrorBox);
+      window.util.isEscEvent(evt, removeErrorBlock);
     });
   }
 
@@ -69,6 +66,6 @@
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     var data = new FormData(form);
-    window.backend.upload(data, successLoadHandler, errorLoadHandler);
+    window.backend.upload(successLoadHandler, errorLoadHandler, data);
   });
 })();
