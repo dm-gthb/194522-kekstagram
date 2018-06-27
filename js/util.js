@@ -58,15 +58,24 @@
       }
     },
 
-    addErrorBlock: function (message) {
-      var errorBlock = document.createElement('div');
-      var errorText = document.createElement('p');
-      errorBlock.classList.add('error-message');
-      errorBlock.style.cssText = 'position: fixed; display: flex; width: 100vw; height: 100vh; z-index: 10; background: #22252A; opacity: 0.97; text-align: center;';
-      errorText.style.cssText = 'background: #fff; color: #000; margin: auto; text-transform: none; padding: 10px 50px; font-size: 24px;';
-      errorText.textContent = message;
-      errorBlock.appendChild(errorText);
-      return errorBlock;
+    handleError: function (message) {
+      var errorBlock = document.querySelector('#picture').content.querySelector('.img-upload__message--error').cloneNode(true);
+      errorBlock.textContent = message;
+      errorBlock.style.zIndex = 10;
+      errorBlock.classList.remove('hidden');
+      document.body.insertAdjacentElement('afterbegin', errorBlock);
+
+      function removeErrorBlock() {
+        document.body.removeChild(errorBlock);
+      }
+
+      document.addEventListener('click', function () {
+        removeErrorBlock();
+      });
+
+      document.addEventListener('keydown', function (evt) {
+        window.util.isEscEvent(evt, removeErrorBlock);
+      });
     }
   };
 })();
