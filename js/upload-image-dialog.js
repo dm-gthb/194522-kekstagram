@@ -21,7 +21,7 @@
   function hideImgUploadSection() {
     imgUploadOverlayElement.classList.add('hidden');
     document.removeEventListener('keydown', imgUploadSectionEscPressHandler);
-    window.util.clearImgUploadData();
+    window.form.clear();
   }
 
   imgUploadInputElement.addEventListener('change', function () {

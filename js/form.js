@@ -5,6 +5,11 @@
   var imgUploadOverlayElement = imgUploadElement.querySelector('.img-upload__overlay');
   var formElement = imgUploadElement.querySelector('.img-upload__form');
   var tagsInputElement = formElement.querySelector('.text__hashtags');
+  var processedImageElement = imgUploadElement.querySelector('.img-upload__preview img');
+  var effectDepthControlElement = imgUploadElement.querySelector('.scale__pin');
+  var effectDepthLineColorFillElement = imgUploadElement.querySelector('.scale__level');
+  var effectDepthContainerElement = imgUploadElement.querySelector('.img-upload__scale');
+  var buttonSubmit = formElement.querySelector('.img-upload__submit');
 
   function showErrorMessage(errorMessage) {
     tagsInputElement.setCustomValidity(errorMessage);
@@ -50,10 +55,12 @@
   function successLoadHandler() {
     imgUploadOverlayElement.classList.add('hidden');
     window.util.clearImgUploadData();
+    buttonSubmit.disabled = false;
   }
 
   function errorLoadHandler(message) {
     window.util.showError(message);
+    buttonSubmit.disabled = false;
   }
 
   tagsInputElement.addEventListener('input', function () {
@@ -62,7 +69,19 @@
 
   formElement.addEventListener('submit', function (evt) {
     evt.preventDefault();
+    buttonSubmit.disabled = true;
     var data = new FormData(formElement);
     window.backend.upload(successLoadHandler, errorLoadHandler, data);
   });
+
+  window.form = {
+    clear: function () {
+      formElement.reset();
+      window.util.resetAllClasses(processedImageElement);
+      processedImageElement.style.filter = '';
+      effectDepthLineColorFillElement.style.width = '100%';
+      effectDepthControlElement.style.left = '100%';
+      effectDepthContainerElement.classList.add('hidden');
+    }
+  };
 })();
