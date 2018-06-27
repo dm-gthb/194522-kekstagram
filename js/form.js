@@ -9,12 +9,12 @@
 
   function showErrorMessage(errorMessage) {
     tagsInputElement.setCustomValidity(errorMessage);
-    tagsInputElement.style.borderBottom = '2px solid red';
+    tagsInputElement.style.border = '2px solid red';
   }
 
   function resetError() {
     tagsInputElement.setCustomValidity('');
-    tagsInputElement.style.borderBottom = '5px solid rgb(238, 238, 238)';
+    tagsInputElement.style.border = '2px solid rgb(238, 238, 238)';
   }
 
   function validateTags() {
