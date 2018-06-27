@@ -2,6 +2,7 @@
 
 (function () {
   var imgUploadSectionElement = document.querySelector('.img-upload');
+  var imgUploadEditSectionElement = imgUploadSectionElement.querySelector('.img-upload__overlay');
   var imgUploadInputElement = imgUploadSectionElement.querySelector('#upload-file');
   var form = imgUploadSectionElement.querySelector('.img-upload__form');
   var tagsInputElement = form.querySelector('.text__hashtags');
@@ -49,7 +50,7 @@
   }
 
   function successLoadHandler() {
-    imgUploadSectionElement.classList.add('hidden');
+    imgUploadEditSectionElement.classList.add('hidden');
     imgUploadInputElement.value = '';
     textareaElement.value = '';
   }
