@@ -6,7 +6,6 @@
   var imgUploadInputElement = imgUploadSectionElement.querySelector('#upload-file');
   var form = imgUploadSectionElement.querySelector('.img-upload__form');
   var tagsInputElement = form.querySelector('.text__hashtags');
-  var textareaElement = form.querySelector('.text__description');
 
   function showErrorMessage(errorMessage) {
     tagsInputElement.setCustomValidity(errorMessage);
@@ -52,7 +51,6 @@
   function successLoadHandler() {
     imgUploadEditSectionElement.classList.add('hidden');
     imgUploadInputElement.value = '';
-    textareaElement.value = '';
   }
 
   function errorLoadHandler(message) {
