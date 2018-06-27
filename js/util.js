@@ -58,7 +58,7 @@
       }
     },
 
-    handleError: function (message) {
+    showError: function (message) {
       var errorBlock = document.querySelector('#picture').content.querySelector('.img-upload__message--error').cloneNode(true);
       errorBlock.textContent = message;
       errorBlock.style.zIndex = 10;

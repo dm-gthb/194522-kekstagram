@@ -5,6 +5,17 @@
   var imgUploadInputElement = imgUploadSectionElement.querySelector('#upload-file');
   var form = imgUploadSectionElement.querySelector('.img-upload__form');
   var tagsInputElement = form.querySelector('.text__hashtags');
+  var textareaElement = form.querySelector('.text__description');
+
+  function showErrorMessage(errorMessage) {
+    tagsInputElement.setCustomValidity(errorMessage);
+    tagsInputElement.style.borderBottom = '2px solid red';
+  }
+
+  function resetError() {
+    tagsInputElement.setCustomValidity('');
+    tagsInputElement.style.borderBottom = '5px solid rgb(238, 238, 238)';
+  }
 
   function validateTags() {
     var tagsString = tagsInputElement.value;
@@ -14,36 +25,37 @@
       var tag = tags[i].trim();
 
       if (tag[0] === '#' && tag.length === 1) {
-        tagsInputElement.setCustomValidity('хеш-тег не может состоять только из одной решётки');
+        showErrorMessage('хеш-тег не может состоять только из одной решётки');
         break;
       } else if (tag[0] !== '#') {
-        tagsInputElement.setCustomValidity('хэш-тег должен начинаться с символа #');
+        showErrorMessage('хэш-тег должен начинаться с символа #');
         break;
       } else if (tag.indexOf('#', 1) > -1) {
-        tagsInputElement.setCustomValidity('хэш-теги должны быть разделены пробелами');
+        showErrorMessage('хэш-теги должны быть разделены пробелами');
         break;
       } else if (tag.length > 20) {
-        tagsInputElement.setCustomValidity('максимальная длина одного хэш-тега составляет 20 символов, включая решётку');
+        showErrorMessage('максимальная длина одного хэш-тега составляет 20 символов, включая решётку');
         break;
       } else {
-        tagsInputElement.setCustomValidity('');
+        resetError();
       }
     }
 
     if (!window.util.checkUniqueElements(tags)) {
-      tagsInputElement.setCustomValidity('один и тот же хэш-тег не может быть использован дважды; теги нечувствительны к регистру');
+      showErrorMessage('один и тот же хэш-тег не может быть использован дважды; теги нечувствительны к регистру');
     } else if (tags.length > 5) {
-      tagsInputElement.setCustomValidity('нельзя указать больше пяти хэш-тегов');
+      showErrorMessage('нельзя указать больше пяти хэш-тегов');
     }
   }
 
   function successLoadHandler() {
     imgUploadSectionElement.classList.add('hidden');
     imgUploadInputElement.value = '';
+    textareaElement.value = '';
   }
 
   function errorLoadHandler(message) {
-    window.util.handleError(message);
+    window.util.showError(message);
   }
 
   tagsInputElement.addEventListener('input', function () {
