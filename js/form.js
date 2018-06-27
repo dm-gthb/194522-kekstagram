@@ -1,11 +1,10 @@
 'use strict';
 
 (function () {
-  var imgUploadSectionElement = document.querySelector('.img-upload');
-  var imgUploadEditSectionElement = imgUploadSectionElement.querySelector('.img-upload__overlay');
-  var imgUploadInputElement = imgUploadSectionElement.querySelector('#upload-file');
-  var form = imgUploadSectionElement.querySelector('.img-upload__form');
-  var tagsInputElement = form.querySelector('.text__hashtags');
+  var imgUploadElement = document.querySelector('.img-upload');
+  var imgUploadOverlayElement = imgUploadElement.querySelector('.img-upload__overlay');
+  var formElement = imgUploadElement.querySelector('.img-upload__form');
+  var tagsInputElement = formElement.querySelector('.text__hashtags');
 
   function showErrorMessage(errorMessage) {
     tagsInputElement.setCustomValidity(errorMessage);
@@ -49,8 +48,8 @@
   }
 
   function successLoadHandler() {
-    imgUploadEditSectionElement.classList.add('hidden');
-    imgUploadInputElement.value = '';
+    imgUploadOverlayElement.classList.add('hidden');
+    window.util.clearImgUploadData();
   }
 
   function errorLoadHandler(message) {
@@ -61,9 +60,9 @@
     validateTags();
   });
 
-  form.addEventListener('submit', function (evt) {
+  formElement.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    var data = new FormData(form);
+    var data = new FormData(formElement);
     window.backend.upload(successLoadHandler, errorLoadHandler, data);
   });
 })();

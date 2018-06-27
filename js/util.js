@@ -3,6 +3,14 @@
 (function () {
   var ENTER_KEY = 13;
   var ESC_KEY = 27;
+  var imgUploadElement = document.querySelector('.img-upload');
+  var imgUploadInputElement = imgUploadElement.querySelector('#upload-file');
+  var imgUploadTagsInputElement = imgUploadElement.querySelector('.text__hashtags');
+  var imgUploadDescription = imgUploadElement.querySelector('.text__description');
+  var processedImageElement = imgUploadElement.querySelector('.img-upload__preview img');
+  var effectDepthControlElement = imgUploadElement.querySelector('.scale__pin');
+  var effectDepthLineColorFillElement = imgUploadElement.querySelector('.scale__level');
+  var effectPreviewElement = imgUploadElement.querySelector('#effect-none');
 
   window.util = {
     isEscEvent: function (evt, action) {
@@ -76,6 +84,17 @@
       document.addEventListener('keydown', function (evt) {
         window.util.isEscEvent(evt, removeErrorBlock);
       });
+    },
+
+    clearImgUploadData: function () {
+      imgUploadInputElement.value = '';
+      imgUploadTagsInputElement.value = '';
+      imgUploadDescription.value = '';
+      window.util.resetAllClasses(processedImageElement);
+      processedImageElement.style.filter = '';
+      effectDepthLineColorFillElement.style.width = '100%';
+      effectDepthControlElement.style.left = '100%';
+      effectPreviewElement.checked = 'true';
     }
   };
 })();

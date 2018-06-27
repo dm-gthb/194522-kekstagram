@@ -1,10 +1,11 @@
 'use strict';
 
 (function () {
-  var tagsInputElement = document.querySelector('.text__hashtags');
-  var imgUploadSectionElement = document.querySelector('.img-upload__overlay');
-  var imgUploadInputElement = document.querySelector('#upload-file');
-  var imgUploadSectionCloseElement = imgUploadSectionElement.querySelector('.img-upload__cancel');
+  var imgUploadElement = document.querySelector('.img-upload');
+  var imgUploadOverlayElement = imgUploadElement.querySelector('.img-upload__overlay');
+  var imgUploadInputElement = imgUploadElement.querySelector('#upload-file');
+  var tagsInputElement = imgUploadElement.querySelector('.text__hashtags');
+  var imgUploadOverlayCloseElement = imgUploadOverlayElement.querySelector('.img-upload__cancel');
 
   function imgUploadSectionEscPressHandler(evt) {
     if (evt.target !== tagsInputElement && evt.target.tagName !== 'TEXTAREA') {
@@ -13,25 +14,25 @@
   }
 
   function showImgUploadSection() {
-    imgUploadSectionElement.classList.remove('hidden');
+    imgUploadOverlayElement.classList.remove('hidden');
     document.addEventListener('keydown', imgUploadSectionEscPressHandler);
   }
 
   function hideImgUploadSection() {
-    imgUploadSectionElement.classList.add('hidden');
+    imgUploadOverlayElement.classList.add('hidden');
     document.removeEventListener('keydown', imgUploadSectionEscPressHandler);
-    imgUploadInputElement.value = '';
+    window.util.clearImgUploadData();
   }
 
   imgUploadInputElement.addEventListener('change', function () {
     showImgUploadSection();
   });
 
-  imgUploadSectionCloseElement.addEventListener('click', function () {
+  imgUploadOverlayCloseElement.addEventListener('click', function () {
     hideImgUploadSection();
   });
 
-  imgUploadSectionCloseElement.addEventListener('keydown', function (evt) {
+  imgUploadOverlayCloseElement.addEventListener('keydown', function (evt) {
     window.util.isEnterEvent(evt, hideImgUploadSection);
   });
 })();
