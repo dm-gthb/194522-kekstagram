@@ -10,7 +10,7 @@
   var processedImageElement = imgUploadElement.querySelector('.img-upload__preview img');
   var effectDepthControlElement = imgUploadElement.querySelector('.scale__pin');
   var effectDepthLineColorFillElement = imgUploadElement.querySelector('.scale__level');
-  var effectPreviewElement = imgUploadElement.querySelector('#effect-none');
+  var firstEffectPreviewElement = imgUploadElement.querySelector('#effect-none');
 
   window.util = {
     isEscEvent: function (evt, action) {
@@ -94,7 +94,7 @@
       processedImageElement.style.filter = '';
       effectDepthLineColorFillElement.style.width = '100%';
       effectDepthControlElement.style.left = '100%';
-      effectPreviewElement.checked = 'true';
+      firstEffectPreviewElement.checked = 'true';
     }
   };
 })();
