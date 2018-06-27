@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var previewPictureTemplateElement = document.querySelector('#picture').content;
+  var previewPictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture__link');
   var detailedPictureContainerElement = document.querySelector('.big-picture');
 
   function renderDetailedPicture(pictureToRender) {
