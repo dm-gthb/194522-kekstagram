@@ -6,9 +6,10 @@
   var imgUploadInputElement = imgUploadElement.querySelector('#upload-file');
   var tagsInputElement = imgUploadElement.querySelector('.text__hashtags');
   var imgUploadOverlayCloseElement = imgUploadOverlayElement.querySelector('.img-upload__cancel');
+  var imgUploadErrorElement = document.querySelector('.img-upload__message--error');
 
   function imgUploadSectionEscPressHandler(evt) {
-    if (evt.target !== tagsInputElement && evt.target.tagName !== 'TEXTAREA') {
+    if (evt.target !== tagsInputElement && evt.target.tagName !== 'TEXTAREA' && !imgUploadErrorElement) {
       window.util.isEscEvent(evt, hideImgUploadSection);
     }
   }
