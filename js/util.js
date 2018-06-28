@@ -65,25 +65,24 @@
       errorBlock.classList.remove('hidden');
       document.body.insertAdjacentElement('afterbegin', errorBlock);
 
-      function removeErrorBlock() {
+      function removeError() {
         document.body.removeChild(errorBlock);
-        document.removeEventListener('keydown', errorBlockEscPressHandler, {once: true});
-        errorBlock.removeEventListener('click', errorBlockEscPressHandler, {once: true});
       }
 
-      function errorBlockEscPressHandler(evt) {
-        if (errorBlock) {
-          window.util.isEscEvent(evt, removeErrorBlock);
-        }
+      function errorClickHandler() {
+        removeError();
+        document.removeEventListener('keydown', errorKeydownHandler);
+        document.removeEventListener('click', errorClickHandler);
       }
 
-      errorBlock.addEventListener('click', removeErrorBlock, {
-        once: true
-      });
+      function errorKeydownHandler(evt) {
+        window.util.isEscEvent(evt, removeError);
+        document.removeEventListener('keydown', errorKeydownHandler);
+        document.removeEventListener('click', errorClickHandler);
+      }
 
-      document.addEventListener('keydown', errorBlockEscPressHandler, {
-        once: true
-      });
+      document.addEventListener('click', errorClickHandler);
+      document.addEventListener('keydown', errorKeydownHandler);
     }
   };
 })();
