@@ -50,12 +50,7 @@
     }
 
     renderDetailedPictureComments();
-
-    if (detailedPictureCommentsQuantityElement.textContent < 5) {
-      detailedPictureCommentsCountContainerElement.classList.add('hidden');
-    } else {
-      detailedPictureCommentsCountContainerElement.classList.remove('hidden');
-    }
+    detailedPictureCommentsCountContainerElement.classList.toggle('hidden', detailedPictureCommentsQuantityElement.textContent < 5);
   }
 
   window.picture = {
