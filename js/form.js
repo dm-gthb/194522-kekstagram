@@ -54,7 +54,7 @@
 
   function successLoadHandler() {
     imgUploadOverlayElement.classList.add('hidden');
-    window.util.clearImgUploadData();
+    window.form.clear();
     buttonSubmit.disabled = false;
   }
 

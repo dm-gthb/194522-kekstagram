@@ -14,7 +14,7 @@
   }
 
   function errorLoadHandler(message) {
-    window.util.handleError(message);
+    window.util.showError(message);
   }
 
   window.backend.download(renderPreviewPictures, errorLoadHandler, false);

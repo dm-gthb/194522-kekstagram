@@ -10,6 +10,7 @@
     var detailedPictureDescriptionElement = detailedPictureContainerElement.querySelector('.social__caption');
     var detailedPictureCommentsListElement = detailedPictureContainerElement.querySelector('.social__comments');
     var detailedPictureExampleCommentsElements = detailedPictureCommentsListElement.querySelectorAll('.social__comment');
+    var detailedPictureCommentsCountContainerElement = detailedPictureContainerElement.querySelector('.social__comment-count');
     var detailedPictureCommentsQuantityElement = detailedPictureContainerElement.querySelector('.comments-count');
     var pictureToRenderComments = pictureToRender.comments;
 
@@ -49,6 +50,12 @@
     }
 
     renderDetailedPictureComments();
+
+    if (detailedPictureCommentsQuantityElement.textContent < 5) {
+      detailedPictureCommentsCountContainerElement.classList.add('hidden');
+    } else {
+      detailedPictureCommentsCountContainerElement.classList.remove('hidden');
+    }
   }
 
   window.picture = {
