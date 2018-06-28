@@ -50,7 +50,7 @@
     }
 
     renderDetailedPictureComments();
-    detailedPictureCommentsCountContainerElement.classList.toggle('hidden', detailedPictureCommentsQuantityElement.textContent < 5);
+    detailedPictureCommentsCountContainerElement.classList.toggle('hidden', detailedPictureCommentsQuantityElement.textContent <= 5);
   }
 
   window.picture = {
