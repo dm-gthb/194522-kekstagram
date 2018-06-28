@@ -67,17 +67,20 @@
 
       function removeErrorBlock() {
         document.body.removeChild(errorBlock);
-        document.removeEventListener('click', removeErrorBlock, {once: true});
-        document.removeEventListener('keydown', removeErrorBlock, {once: true});
+        document.removeEventListener('keydown', errorBlockEscPressHandler, {once: true});
+        errorBlock.removeEventListener('click', errorBlockEscPressHandler, {once: true});
       }
 
       function errorBlockEscPressHandler(evt) {
-        window.util.isEscEvent(evt, removeErrorBlock);
+        if (errorBlock) {
+          window.util.isEscEvent(evt, removeErrorBlock);
+        }
       }
 
-      document.addEventListener('click', removeErrorBlock, {
+      errorBlock.addEventListener('click', removeErrorBlock, {
         once: true
       });
+
       document.addEventListener('keydown', errorBlockEscPressHandler, {
         once: true
       });
