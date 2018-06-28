@@ -5,6 +5,7 @@
   var imgUploadOverlayElement = imgUploadElement.querySelector('.img-upload__overlay');
   var formElement = imgUploadElement.querySelector('.img-upload__form');
   var tagsInputElement = formElement.querySelector('.text__hashtags');
+  var processedImageContainerElement = imgUploadElement.querySelector('.img-upload__preview');
   var processedImageElement = imgUploadElement.querySelector('.img-upload__preview img');
   var effectDepthControlElement = imgUploadElement.querySelector('.scale__pin');
   var effectDepthLineColorFillElement = imgUploadElement.querySelector('.scale__level');
@@ -82,6 +83,7 @@
       effectDepthLineColorFillElement.style.width = '100%';
       effectDepthControlElement.style.left = '100%';
       effectDepthContainerElement.classList.add('hidden');
+      processedImageContainerElement.style.transform = '';
     }
   };
 })();
