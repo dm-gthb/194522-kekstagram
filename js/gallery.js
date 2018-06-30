@@ -5,10 +5,10 @@
   var previewPicturesContainerElement = document.querySelector('.pictures');
   var headerMenuElement = document.querySelector('.img-filters');
 
-  var headerButtonsContainerElement = headerMenuElement.querySelector('.img-filters__form');
-  var buttonNewPictures = headerButtonsContainerElement.querySelector('#filter-new');
-  var buttonDiscussedPictures = headerButtonsContainerElement.querySelector('#filter-discussed');
-  var buttonPopularPictures = headerButtonsContainerElement.querySelector('#filter-popular');
+  var filtersContainerElement = headerMenuElement.querySelector('.img-filters__form');
+  var buttonNewPictures = filtersContainerElement.querySelector('#filter-new');
+  var buttonDiscussedPictures = filtersContainerElement.querySelector('#filter-discussed');
+  var buttonPopularPictures = filtersContainerElement.querySelector('#filter-popular');
 
   var initLoadedPictures;
   var popularPictures;
@@ -62,30 +62,26 @@
     window.util.showError(message);
   }
 
-
-  headerButtonsContainerElement.addEventListener('click', function (evt) {
+  filtersContainerElement.addEventListener('click', function (evt) {
     var target = evt.target;
     if (clickedButton !== target) {
       clickedButton.classList.remove('img-filters__button--active');
       target.classList.add('img-filters__button--active');
       clickedButton = target;
-    }
-    switch (target) {
-      case buttonPopularPictures:
-        deletePictures();
-        renderPreviewPictures(initLoadedPictures);
-        break;
-      case buttonNewPictures:
-        deletePictures();
-        renderPreviewPictures(popularPictures);
-        break;
-      case buttonDiscussedPictures:
-        deletePictures();
-        renderPreviewPictures(discussedPictures);
-        break;
+      deletePictures();
+      switch (target) {
+        case buttonPopularPictures:
+          renderPreviewPictures(initLoadedPictures);
+          break;
+        case buttonNewPictures:
+          renderPreviewPictures(popularPictures);
+          break;
+        case buttonDiscussedPictures:
+          renderPreviewPictures(discussedPictures);
+          break;
+      }
     }
   });
-
 
   function renderPreviewPictures(picturesToRender) {
     for (var i = 0; i < picturesToRender.length; i++) {
