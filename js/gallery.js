@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var PICTURES_ITEMS_QUANTITY = 25;
   var fragment = document.createDocumentFragment();
   var previewPicturesContainerElement = document.querySelector('.pictures');
 
@@ -14,5 +13,9 @@
     previewPicturesContainerElement.appendChild(fragment);
   }
 
-  renderPreviewPictures(window.data.generatePictures(PICTURES_ITEMS_QUANTITY));
+  function errorLoadHandler(message) {
+    window.util.showError(message);
+  }
+
+  window.backend.download(renderPreviewPictures, errorLoadHandler, false);
 })();

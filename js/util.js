@@ -56,6 +56,33 @@
       for (var i = 0; i < element.classList.length; i++) {
         element.classList.remove(element.classList[i]);
       }
+    },
+
+    showError: function (message) {
+      var errorBlock = document.querySelector('#picture').content.querySelector('.img-upload__message--error').cloneNode(true);
+      errorBlock.textContent = message;
+      errorBlock.style.zIndex = 10;
+      errorBlock.classList.remove('hidden');
+      document.body.insertAdjacentElement('afterbegin', errorBlock);
+
+      function removeError() {
+        document.body.removeChild(errorBlock);
+      }
+
+      function errorClickHandler() {
+        removeError();
+        document.removeEventListener('keydown', errorKeydownHandler);
+        document.removeEventListener('click', errorClickHandler);
+      }
+
+      function errorKeydownHandler(evt) {
+        window.util.isEscEvent(evt, removeError);
+        document.removeEventListener('keydown', errorKeydownHandler);
+        document.removeEventListener('click', errorClickHandler);
+      }
+
+      document.addEventListener('click', errorClickHandler);
+      document.addEventListener('keydown', errorKeydownHandler);
     }
   };
 })();

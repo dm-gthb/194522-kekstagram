@@ -19,7 +19,7 @@
   ];
   var picturesItems = [];
 
-  function generateRandomComments (quantity) {
+  function generateRandomComments(quantity) {
     var comments = [];
     var commentsAmount = window.util.getRandomNumber(1, quantity);
     for (var i = 0; i < commentsAmount; i++) {
@@ -29,7 +29,7 @@
     return comments;
   }
 
-  function generatePictureData (index) {
+  function generatePictureData(index) {
     return {
       url: 'photos/' + (index + 1) + '.jpg',
       likes: window.util.getRandomNumber(15, 200),
