@@ -51,8 +51,8 @@
   function successLoadHandler(data) {
     initLoadedPictures = data;
     popularPictures = getUniqueArrayElements(initLoadedPictures, 10);
-    discussedPictures = getUniqueArrayElements(initLoadedPictures, 3);
-    discussedPictures = initLoadedPictures.sort(compareCommentsQuantity);
+    var initLoadedPicturesCopy = initLoadedPictures.slice();
+    discussedPictures = initLoadedPicturesCopy.sort(compareCommentsQuantity);
 
     renderPreviewPictures(initLoadedPictures);
     headerMenuElement.classList.remove('img-filters--inactive');
