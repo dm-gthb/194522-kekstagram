@@ -88,8 +88,8 @@
 
       window.scalePhoto.scaleValue = '100%';
       window.scalePhoto.scaleValueNum = 100;
-      console.log(window.scalePhoto.scaleValue);
-      console.log(window.scalePhoto.scaleValueNum);
+      console.log('reset: ' + window.scalePhoto.scaleValue);
+      console.log('reset: ' + window.scalePhoto.scaleValueNum);
     }
   };
 })();
