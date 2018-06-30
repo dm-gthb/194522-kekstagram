@@ -85,11 +85,7 @@
       effectDepthControlElement.style.left = '100%';
       effectDepthContainerElement.classList.add('hidden');
       processedImageContainerElement.style.transform = 'scale(1)';
-
-      window.scalePhoto.scaleValue = '100%';
-      window.scalePhoto.scaleValueNum = 100;
-      console.log('reset: ' + window.scalePhoto.scaleValue);
-      console.log('reset: ' + window.scalePhoto.scaleValueNum);
+      window.scalePhoto = 100;
     }
   };
 })();
