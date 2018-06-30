@@ -11,6 +11,7 @@
   var effectDepthLineColorFillElement = imgUploadElement.querySelector('.scale__level');
   var effectDepthContainerElement = imgUploadElement.querySelector('.img-upload__scale');
   var buttonSubmit = formElement.querySelector('.img-upload__submit');
+  var scaleValueElement = imgUploadElement.querySelector('.resize__control--value');
 
   function showErrorMessage(errorMessage) {
     tagsInputElement.setCustomValidity(errorMessage);
@@ -83,7 +84,12 @@
       effectDepthLineColorFillElement.style.width = '100%';
       effectDepthControlElement.style.left = '100%';
       effectDepthContainerElement.classList.add('hidden');
-      processedImageContainerElement.style.transform = '';
+      processedImageContainerElement.style.transform = 'scale(1)';
+
+      window.scalePhoto.scaleValue = '100%';
+      window.scalePhoto.scaleValueNum = 100;
+      console.log(window.scalePhoto.scaleValue);
+      console.log(window.scalePhoto.scaleValueNum);
     }
   };
 })();
