@@ -11,7 +11,6 @@
   var effectDepthLineColorFillElement = imgUploadElement.querySelector('.scale__level');
   var effectDepthContainerElement = imgUploadElement.querySelector('.img-upload__scale');
   var buttonSubmit = formElement.querySelector('.img-upload__submit');
-  var scaleValueElement = imgUploadElement.querySelector('.resize__control--value');
 
   function showErrorMessage(errorMessage) {
     tagsInputElement.setCustomValidity(errorMessage);

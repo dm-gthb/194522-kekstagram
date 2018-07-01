@@ -65,7 +65,6 @@
       target.classList.add('img-filters__button--active');
       clickedButtonElement = target;
 
-
       switch (target) {
         case popularFilterControlElement:
           updatePreviewPictures(initLoadedPictures);
