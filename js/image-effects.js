@@ -11,7 +11,7 @@
   var effectDepthValue = effectDepthContainerElement.querySelector('.scale__value').value;
 
   function activateEffect() {
-    window.util.resetAllClasses(processedImageElement);
+    window.utils.resetAllClasses(processedImageElement);
     var effectClass = 'effects__preview--' + selectedEffectName;
     processedImageElement.classList.add(effectClass);
     effectDepthLineColorFillElement.style.width = '100%';
@@ -24,7 +24,7 @@
   function getEffectControlPersentPositionLeft() {
     var effectControlPositionLeft = effectDepthControlElement.offsetLeft;
     var scaleWidth = effectDepthControlElement.offsetParent.offsetWidth;
-    return window.util.getPercent(effectControlPositionLeft, scaleWidth);
+    return window.utils.getPercent(effectControlPositionLeft, scaleWidth);
   }
 
   effectsListElement.addEventListener('change', function (evt) {
@@ -39,7 +39,7 @@
   effectDepthControlElement.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startCoords = evt.clientX;
-    var extremeCoords = window.util.getCoords(effectDepthLineElement);
+    var extremeCoords = window.utils.getCoords(effectDepthLineElement);
     var min = extremeCoords.left;
     var max = extremeCoords.right;
 
@@ -54,19 +54,19 @@
 
         switch (selectedEffectName) {
           case 'chrome':
-            var appliedEffect = 'grayscale' + '(' + window.util.getFraction(effectDepthValue, 1) + ')';
+            var appliedEffect = 'grayscale' + '(' + window.utils.getFraction(effectDepthValue, 1) + ')';
             break;
           case 'sepia':
-            appliedEffect = 'sepia' + '(' + window.util.getFraction(effectDepthValue, 1) + ')';
+            appliedEffect = 'sepia' + '(' + window.utils.getFraction(effectDepthValue, 1) + ')';
             break;
           case 'phobos':
-            appliedEffect = 'blur' + '(' + window.util.getFraction(effectDepthValue, 3) + 'px' + ')';
+            appliedEffect = 'blur' + '(' + window.utils.getFraction(effectDepthValue, 3) + 'px' + ')';
             break;
           case 'marvin':
-            appliedEffect = 'invert' + '(' + window.util.getFraction(effectDepthValue, 100) + '%' + ')';
+            appliedEffect = 'invert' + '(' + window.utils.getFraction(effectDepthValue, 100) + '%' + ')';
             break;
           case 'heat':
-            appliedEffect = 'brightness' + '(' + window.util.getFraction(effectDepthValue, 3) + ')';
+            appliedEffect = 'brightness' + '(' + window.utils.getFraction(effectDepthValue, 3) + ')';
             break;
         }
 

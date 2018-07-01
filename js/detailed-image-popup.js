@@ -2,12 +2,11 @@
 
 (function () {
   var detailedPictureContainerElement = document.querySelector('.big-picture');
-  // picture.js also use var detailedPictureContainerElement
   var closeDetailedPictureElement = detailedPictureContainerElement.querySelector('.big-picture__cancel');
 
   function detailedPictureEscPressHandler(evt) {
     if (evt.target.tagName !== 'INPUT') {
-      window.util.isEscEvent(evt, hideDetailedPicture);
+      window.utils.isEscEvent(evt, hideDetailedPicture);
     }
   }
 
@@ -21,7 +20,7 @@
   });
 
   closeDetailedPictureElement.addEventListener('keydown', function (evt) {
-    window.util.isEnterEvent(evt, hideDetailedPicture);
+    window.utils.isEnterEvent(evt, hideDetailedPicture);
   });
 
   window.detailedImagePopup = {

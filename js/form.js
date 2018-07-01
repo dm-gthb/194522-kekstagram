@@ -47,7 +47,7 @@
       }
     }
 
-    if (!window.util.checkUniqueElements(tags)) {
+    if (!window.utils.checkUniqueElements(tags)) {
       showErrorMessage('один и тот же хэш-тег не может быть использован дважды; теги нечувствительны к регистру');
     } else if (tags.length > 5) {
       showErrorMessage('нельзя указать больше пяти хэш-тегов');
@@ -61,7 +61,7 @@
   }
 
   function errorLoadHandler(message) {
-    window.util.showError(message);
+    window.utils.showError(message);
     buttonSubmit.disabled = false;
   }
 
@@ -79,7 +79,7 @@
   window.form = {
     clear: function () {
       formElement.reset();
-      window.util.resetAllClasses(processedImageElement);
+      window.utils.resetAllClasses(processedImageElement);
       processedImageElement.style.filter = '';
       effectDepthLineColorFillElement.style.width = '100%';
       effectDepthControlElement.style.left = '100%';

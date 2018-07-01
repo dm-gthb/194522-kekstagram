@@ -5,7 +5,7 @@
   var previewPicturesContainerElement = document.querySelector('.pictures');
   var headerMenuElement = document.querySelector('.img-filters');
   var filtersContainerElement = headerMenuElement.querySelector('.img-filters__form');
-  var clickedButton = document.querySelector('.img-filters__button--active');
+  var clickedButtonElement = document.querySelector('.img-filters__button--active');
   var popularFilterControlElement = filtersContainerElement.querySelector('#filter-popular');
   var newFilterControlElement = filtersContainerElement.querySelector('#filter-new');
   var discussedFilterControlElement = filtersContainerElement.querySelector('#filter-discussed');
@@ -23,8 +23,10 @@
   }
 
   function updatePreviewPictures(newPictures) {
-    deletePictures();
-    renderPreviewPictures(newPictures);
+    window.utils.debounce(function () {
+      deletePictures();
+      renderPreviewPictures(newPictures);
+    });
   }
 
   function deletePictures() {
@@ -44,7 +46,7 @@
 
   function successLoadHandler(data) {
     initLoadedPictures = data;
-    popularPictures = window.util.getUniqueArrayElements(initLoadedPictures, 10);
+    popularPictures = window.utils.getUniqueArrayElements(initLoadedPictures, 10);
     var initLoadedPicturesCopy = initLoadedPictures.slice();
     discussedPictures = initLoadedPicturesCopy.sort(compareCommentsQuantity);
 
@@ -53,34 +55,28 @@
   }
 
   function errorLoadHandler(message) {
-    window.util.showError(message);
+    window.utils.showError(message);
   }
 
   filtersContainerElement.addEventListener('click', function (evt) {
     var target = evt.target;
-    if (clickedButton !== target) {
-      clickedButton.classList.remove('img-filters__button--active');
+    if (clickedButtonElement !== target) {
+      clickedButtonElement.classList.remove('img-filters__button--active');
       target.classList.add('img-filters__button--active');
-      clickedButton = target;
+      clickedButtonElement = target;
 
 
       switch (target) {
         case popularFilterControlElement:
-          window.debounce(function () {
-            updatePreviewPictures(initLoadedPictures);
-          });
+          updatePreviewPictures(initLoadedPictures);
           break;
 
         case newFilterControlElement:
-          window.debounce(function () {
-            updatePreviewPictures(popularPictures);
-          });
+          updatePreviewPictures(popularPictures);
           break;
 
         case discussedFilterControlElement:
-          window.debounce(function () {
-            updatePreviewPictures(discussedPictures);
-          });
+          updatePreviewPictures(discussedPictures);
           break;
       }
     }

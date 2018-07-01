@@ -10,7 +10,7 @@
   function imgUploadSectionEscPressHandler(evt) {
     var imgUploadErrorElement = document.querySelector('.img-upload__message--error');
     if (evt.target !== tagsInputElement && evt.target.tagName !== 'TEXTAREA' && !imgUploadErrorElement) {
-      window.util.isEscEvent(evt, hideImgUploadSection);
+      window.utils.isEscEvent(evt, hideImgUploadSection);
     }
   }
 
@@ -34,6 +34,6 @@
   });
 
   imgUploadOverlayCloseElement.addEventListener('keydown', function (evt) {
-    window.util.isEnterEvent(evt, hideImgUploadSection);
+    window.utils.isEnterEvent(evt, hideImgUploadSection);
   });
 })();

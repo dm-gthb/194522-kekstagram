@@ -27,15 +27,20 @@
         var commentTextElement = document.createElement('p');
         commentElement.classList.add('social__comment');
         commentAvatarElement.classList.add('social__picture');
-        commentAvatarElement.src = 'img/avatar-' + window.util.getRandomNumber(1, 6) + '.svg';
+        commentAvatarElement.src = 'img/avatar-' + window.utils.getRandomNumber(1, 6) + '.svg';
         commentAvatarElement.width = '35';
         commentAvatarElement.height = '35';
         commentAvatarElement.alt = 'Аватар комментатора фотографии';
         commentTextElement.classList.add('social__text');
         commentTextElement.textContent = pictureToRenderComments[i];
 
+        if (i >= 5) {
+          commentElement.classList.add('visually-hidden');
+        }
+
         commentElement.appendChild(commentAvatarElement);
         commentElement.appendChild(commentTextElement);
+
         detailedPictureCommentsListElement.appendChild(commentElement);
       }
     }
@@ -51,6 +56,7 @@
 
     renderDetailedPictureComments();
     detailedPictureCommentsCountContainerElement.classList.toggle('hidden', detailedPictureCommentsQuantityElement.textContent <= 5);
+
   }
 
   window.picture = {
