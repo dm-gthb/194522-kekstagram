@@ -6,9 +6,9 @@
   var headerMenuElement = document.querySelector('.img-filters');
 
   var filtersContainerElement = headerMenuElement.querySelector('.img-filters__form');
-  var buttonNewPictures = filtersContainerElement.querySelector('#filter-new');
-  var buttonDiscussedPictures = filtersContainerElement.querySelector('#filter-discussed');
-  var buttonPopularPictures = filtersContainerElement.querySelector('#filter-popular');
+  var popularFilterControlElement = filtersContainerElement.querySelector('#filter-popular');
+  var newFilterControlElement = filtersContainerElement.querySelector('#filter-new');
+  var discussedFilterControlElement = filtersContainerElement.querySelector('#filter-discussed');
 
   var initLoadedPictures;
   var popularPictures;
@@ -68,13 +68,13 @@
       clickedButton = target;
       deletePictures();
       switch (target) {
-        case buttonPopularPictures:
+        case popularFilterControlElement:
           renderPreviewPictures(initLoadedPictures);
           break;
-        case buttonNewPictures:
+        case newFilterControlElement:
           renderPreviewPictures(popularPictures);
           break;
-        case buttonDiscussedPictures:
+        case discussedFilterControlElement:
           renderPreviewPictures(discussedPictures);
           break;
       }
