@@ -27,11 +27,9 @@
     for (var i = 0; i < quantity; i++) {
       var newElement = window.util.getRandomArrayElement(array);
       var isUnique = true;
-      for (var k = 0; k < resultArray.length; k++) {
-        if (resultArray[k] === newElement) {
-          i--;
-          isUnique = false;
-        }
+      if (resultArray.indexOf(newElement) > -1) {
+        i--;
+        isUnique = false;
       }
       if (isUnique) {
         resultArray.push(newElement);
