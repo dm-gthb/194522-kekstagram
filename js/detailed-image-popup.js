@@ -13,6 +13,7 @@
   function hideDetailedPicture() {
     detailedPictureContainerElement.classList.add('hidden');
     document.removeEventListener('keydown', detailedPictureEscPressHandler);
+    window.picture.commentsCount = 5;
   }
 
   closeDetailedPictureElement.addEventListener('click', function () {
