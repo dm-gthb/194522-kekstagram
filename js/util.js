@@ -52,6 +52,22 @@
       return true;
     },
 
+    getUniqueArrayElements: function (array, quantity) {
+      var resultArray = [];
+      for (var i = 0; i < quantity; i++) {
+        var newElement = window.util.getRandomArrayElement(array);
+        var isUnique = true;
+        if (resultArray.indexOf(newElement) > -1) {
+          i--;
+          isUnique = false;
+        }
+        if (isUnique) {
+          resultArray.push(newElement);
+        }
+      }
+      return resultArray;
+    },
+
     resetAllClasses: function (element) {
       for (var i = 0; i < element.classList.length; i++) {
         element.classList.remove(element.classList[i]);
