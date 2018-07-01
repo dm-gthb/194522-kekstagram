@@ -22,6 +22,11 @@
     previewPicturesContainerElement.appendChild(fragment);
   }
 
+  function updatePreviewPictures(newPictures) {
+    deletePictures();
+    renderPreviewPictures(newPictures);
+  }
+
   function deletePictures() {
     var previewPicturesElements = document.querySelectorAll('.picture__link');
     for (var i = 0; i < previewPicturesElements.length; i++) {
@@ -57,16 +62,25 @@
       clickedButton.classList.remove('img-filters__button--active');
       target.classList.add('img-filters__button--active');
       clickedButton = target;
-      deletePictures();
+
+
       switch (target) {
         case popularFilterControlElement:
-          renderPreviewPictures(initLoadedPictures);
+          window.debounce(function () {
+            updatePreviewPictures(initLoadedPictures);
+          });
           break;
+
         case newFilterControlElement:
-          renderPreviewPictures(popularPictures);
+          window.debounce(function () {
+            updatePreviewPictures(popularPictures);
+          });
           break;
+
         case discussedFilterControlElement:
-          renderPreviewPictures(discussedPictures);
+          window.debounce(function () {
+            updatePreviewPictures(discussedPictures);
+          });
           break;
       }
     }
