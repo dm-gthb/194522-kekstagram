@@ -31,8 +31,8 @@
         commentElement.classList.add('social__comment');
         commentAvatarElement.classList.add('social__picture');
         commentAvatarElement.src = 'img/avatar-' + window.utils.getRandomNumber(1, 6) + '.svg';
-        commentAvatarElement.width = '35';
-        commentAvatarElement.height = '35';
+        commentAvatarElement.width = 35;
+        commentAvatarElement.height = 35;
         commentAvatarElement.alt = 'Аватар комментатора фотографии';
         commentTextElement.classList.add('social__text');
         commentTextElement.textContent = pictureToRenderComments[i];
@@ -72,10 +72,10 @@
     }
 
     renderDetailedPictureComments();
-    detailedPictureCommentsCountContainerElement.classList.toggle('hidden', detailedPictureAllCommentsQuantityElement.textContent <= INIT_COMMENTS_QUANTITY);
-    detailedPictureLoadCommentsElement.classList.toggle('hidden', detailedPictureAllCommentsQuantityElement.textContent <= INIT_COMMENTS_QUANTITY);
+    detailedPictureCommentsCountContainerElement.classList.toggle('hidden', pictureToRenderComments.length <= INIT_COMMENTS_QUANTITY);
+    detailedPictureLoadCommentsElement.classList.toggle('hidden', pictureToRenderComments.length <= INIT_COMMENTS_QUANTITY);
 
-    if (detailedPictureAllCommentsQuantityElement.textContent <= INIT_COMMENTS_QUANTITY) {
+    if (pictureToRenderComments.length <= INIT_COMMENTS_QUANTITY) {
       detailedPictureCommentsCountContainerElement.classList.add('hidden');
       detailedPictureLoadCommentsElement.classList.add('hidden');
     } else {
