@@ -1,12 +1,14 @@
 'use strict';
 
 (function () {
+  var ALLOWED_FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
   var imgUploadElement = document.querySelector('.img-upload');
   var imgUploadOverlayElement = imgUploadElement.querySelector('.img-upload__overlay');
   var formElement = imgUploadElement.querySelector('.img-upload__form');
   var tagsInputElement = formElement.querySelector('.text__hashtags');
   var processedImageContainerElement = imgUploadElement.querySelector('.img-upload__preview');
   var processedImageElement = imgUploadElement.querySelector('.img-upload__preview img');
+  var fileChooserElement = imgUploadElement.querySelector('#upload-file');
   var effectDepthControlElement = imgUploadElement.querySelector('.scale__pin');
   var effectDepthLineColorFillElement = imgUploadElement.querySelector('.scale__level');
   var effectDepthContainerElement = imgUploadElement.querySelector('.img-upload__scale');
@@ -63,6 +65,21 @@
     window.utils.showError(message);
     buttonSubmit.disabled = false;
   }
+
+  fileChooserElement.addEventListener('change', function () {
+    var file = fileChooserElement.files[0];
+    var fileName = file.name.toLowerCase();
+    var matches = ALLOWED_FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+    if (matches) {
+      var reader = new FileReader();
+      reader.addEventListener('load', function () {
+        processedImageElement.src = reader.result;
+      });
+      reader.readAsDataURL(file);
+    }
+  });
 
   tagsInputElement.addEventListener('input', function () {
     validateTags();
