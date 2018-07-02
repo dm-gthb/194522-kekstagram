@@ -102,6 +102,7 @@
       effectDepthContainerElement.classList.add('hidden');
       processedImageContainerElement.style.transform = 'scale(1)';
       window.scalePhoto = 100;
+      fileChooserElement.value = '';
     }
   };
 })();
