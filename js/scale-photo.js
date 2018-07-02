@@ -1,14 +1,12 @@
 'use strict';
 
 (function () {
-  var scaleValueElement = document.querySelector('.resize__control--value');
   var SCALE_MIN_VALUE = 25;
   var SCALE_MAX_VALUE = 100;
   var SCALE_STEP_VALUE = 25;
+  var scaleValueElement = document.querySelector('.resize__control--value');
   var processedImageContainerElement = document.querySelector('.img-upload__preview');
   var scaleControlElements = document.querySelectorAll('button.resize__control');
-
-  window.scalePhoto = parseInt(scaleValueElement.value, 10);
 
   function scaleElementClickHandler(evt) {
     var flag = evt.target.classList.contains('resize__control--plus') ? 1 : -1;
@@ -30,4 +28,6 @@
       scaleElementClickHandler(evt);
     });
   }
+
+  window.scalePhoto = parseInt(scaleValueElement.value, 10);
 })();

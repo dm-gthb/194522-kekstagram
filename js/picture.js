@@ -1,10 +1,10 @@
 'use strict';
 
 (function () {
+  var INIT_COMMENTS_QUANTITY = 5;
   var previewPictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture__link');
   var detailedPictureContainerElement = document.querySelector('.big-picture');
   var detailedPictureLoadCommentsElement = detailedPictureContainerElement.querySelector('.social__loadmore');
-  var INIT_COMMENTS_QUANTITY = 5;
 
   function renderDetailedPicture(pictureToRender) {
     var detailedPictureImgElement = detailedPictureContainerElement.querySelector('.big-picture__img img');
