@@ -21,9 +21,9 @@
 
   function generateRandomComments(quantity) {
     var comments = [];
-    var commentsAmount = window.util.getRandomNumber(1, quantity);
+    var commentsAmount = window.utils.getRandomNumber(1, quantity);
     for (var i = 0; i < commentsAmount; i++) {
-      comments[i] = window.util.getRandomArrayElement(TEST_COMMENTS);
+      comments[i] = window.utils.getRandomArrayElement(TEST_COMMENTS);
     }
 
     return comments;
@@ -32,9 +32,9 @@
   function generatePictureData(index) {
     return {
       url: 'photos/' + (index + 1) + '.jpg',
-      likes: window.util.getRandomNumber(15, 200),
+      likes: window.utils.getRandomNumber(15, 200),
       comments: generateRandomComments(5),
-      description: window.util.getRandomArrayElement(TEST_DESCRIPTIONS)
+      description: window.utils.getRandomArrayElement(TEST_DESCRIPTIONS)
     };
   }
 

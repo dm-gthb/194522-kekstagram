@@ -3,8 +3,10 @@
 (function () {
   var ENTER_KEY = 13;
   var ESC_KEY = 27;
+  var DEBOUNCE_INTERVAL = 500;
+  var lastTimeout;
 
-  window.util = {
+  window.utils = {
     isEscEvent: function (evt, action) {
       if (evt.keyCode === ESC_KEY) {
         action();
@@ -52,10 +54,33 @@
       return true;
     },
 
+    getUniqueArrayElements: function (array, quantity) {
+      var resultArray = [];
+      for (var i = 0; i < quantity; i++) {
+        var newElement = window.utils.getRandomArrayElement(array);
+        var isUnique = true;
+        if (resultArray.indexOf(newElement) > -1) {
+          i--;
+          isUnique = false;
+        }
+        if (isUnique) {
+          resultArray.push(newElement);
+        }
+      }
+      return resultArray;
+    },
+
     resetAllClasses: function (element) {
       for (var i = 0; i < element.classList.length; i++) {
         element.classList.remove(element.classList[i]);
       }
+    },
+
+    debounce: function (fun) {
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(fun, DEBOUNCE_INTERVAL);
     },
 
     showError: function (message) {
@@ -76,7 +101,7 @@
       }
 
       function errorKeydownHandler(evt) {
-        window.util.isEscEvent(evt, removeError);
+        window.utils.isEscEvent(evt, removeError);
         document.removeEventListener('keydown', errorKeydownHandler);
         document.removeEventListener('click', errorClickHandler);
       }
