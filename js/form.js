@@ -78,6 +78,9 @@
         processedImageElement.src = reader.result;
       });
       reader.readAsDataURL(file);
+      window.uploadImageDialog.show();
+    } else {
+      window.utils.showError('недопустимый формат изображения');
     }
   });
 
