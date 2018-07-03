@@ -14,10 +14,10 @@
   var discussedPictures;
 
   function renderPreviewPictures(picturesToRender) {
-    for (var i = 0; i < picturesToRender.length; i++) {
-      var newPreviewPicture = window.picture.renderPreview(picturesToRender[i]);
+    picturesToRender.forEach(function (element) {
+      var newPreviewPicture = window.picture.renderPreview(element);
       fragment.appendChild(newPreviewPicture);
-    }
+    });
 
     previewPicturesContainerElement.appendChild(fragment);
   }
