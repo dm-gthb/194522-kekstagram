@@ -9,8 +9,8 @@
   var scaleControlElements = document.querySelectorAll('button.resize__control');
 
   function scaleElementClickHandler(evt) {
-    var flag = evt.target.classList.contains('resize__control--plus') ? 1 : -1;
-    var newValue = window.scalePhoto + SCALE_STEP_VALUE * flag;
+    var scaleDirection = evt.target.classList.contains('resize__control--plus') ? 1 : -1;
+    var newValue = window.scalePhoto + SCALE_STEP_VALUE * scaleDirection;
     if (newValue <= SCALE_MAX_VALUE && newValue >= SCALE_MIN_VALUE) {
       window.scalePhoto = newValue;
       scaleValueElement.value = window.scalePhoto + '%';
@@ -20,7 +20,7 @@
 
   function addScaleStyle() {
     var scaleStyleValue = window.scalePhoto / 100;
-    processedImageContainerElement.style.transform = 'scale' + '(' + scaleStyleValue + ')';
+    processedImageContainerElement.style.transform = 'scale(' + scaleStyleValue + ')';
   }
 
   for (var i = 0; i < scaleControlElements.length; i++) {
