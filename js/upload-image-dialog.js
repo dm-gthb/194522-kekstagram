@@ -3,7 +3,6 @@
 (function () {
   var imgUploadElement = document.querySelector('.img-upload');
   var imgUploadOverlayElement = imgUploadElement.querySelector('.img-upload__overlay');
-  var imgUploadInputElement = imgUploadElement.querySelector('#upload-file');
   var tagsInputElement = imgUploadElement.querySelector('.text__hashtags');
   var imgUploadOverlayCloseElement = imgUploadOverlayElement.querySelector('.img-upload__cancel');
 
@@ -14,20 +13,11 @@
     }
   }
 
-  function showImgUploadSection() {
-    imgUploadOverlayElement.classList.remove('hidden');
-    document.addEventListener('keydown', imgUploadSectionEscPressHandler);
-  }
-
   function hideImgUploadSection() {
     imgUploadOverlayElement.classList.add('hidden');
     document.removeEventListener('keydown', imgUploadSectionEscPressHandler);
     window.form.clear();
   }
-
-  imgUploadInputElement.addEventListener('change', function () {
-    showImgUploadSection();
-  });
 
   imgUploadOverlayCloseElement.addEventListener('click', function () {
     hideImgUploadSection();
@@ -36,4 +26,11 @@
   imgUploadOverlayCloseElement.addEventListener('keydown', function (evt) {
     window.utils.isEnterEvent(evt, hideImgUploadSection);
   });
+
+  window.uploadImageDialog = {
+    show: function () {
+      imgUploadOverlayElement.classList.remove('hidden');
+      document.addEventListener('keydown', imgUploadSectionEscPressHandler);
+    }
+  };
 })();

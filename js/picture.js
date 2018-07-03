@@ -1,10 +1,10 @@
 'use strict';
 
 (function () {
+  var INIT_COMMENTS_QUANTITY = 5;
   var previewPictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture__link');
   var detailedPictureContainerElement = document.querySelector('.big-picture');
   var detailedPictureLoadCommentsElement = detailedPictureContainerElement.querySelector('.social__loadmore');
-  var INIT_COMMENTS_QUANTITY = 5;
 
   function renderDetailedPicture(pictureToRender) {
     var detailedPictureImgElement = detailedPictureContainerElement.querySelector('.big-picture__img img');
@@ -24,7 +24,7 @@
     }
 
     function renderDetailedPictureComments() {
-      for (var i = 0; i < pictureToRenderComments.length; i++) {
+      pictureToRenderComments.forEach(function (element, index) {
         var commentElement = document.createElement('li');
         var commentAvatarElement = document.createElement('img');
         var commentTextElement = document.createElement('p');
@@ -35,9 +35,9 @@
         commentAvatarElement.height = 35;
         commentAvatarElement.alt = 'Аватар комментатора фотографии';
         commentTextElement.classList.add('social__text');
-        commentTextElement.textContent = pictureToRenderComments[i];
+        commentTextElement.textContent = element;
 
-        if (i >= INIT_COMMENTS_QUANTITY) {
+        if (index >= INIT_COMMENTS_QUANTITY) {
           commentElement.classList.add('visually-hidden');
         }
 
@@ -45,7 +45,7 @@
         commentElement.appendChild(commentTextElement);
 
         detailedPictureCommentsListElement.appendChild(commentElement);
-      }
+      });
     }
 
     function loadCommentsElementClickHandler() {

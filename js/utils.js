@@ -54,7 +54,7 @@
       return true;
     },
 
-    getUniqueArrayElements: function (array, quantity) {
+    getUniqueElementsArray: function (array, quantity) {
       var resultArray = [];
       for (var i = 0; i < quantity; i++) {
         var newElement = window.utils.getRandomArrayElement(array);
