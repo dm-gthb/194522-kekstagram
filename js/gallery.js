@@ -46,7 +46,7 @@
 
   function successLoadHandler(data) {
     initLoadedPictures = data;
-    popularPictures = window.utils.getUniqueArrayElements(initLoadedPictures, 10);
+    popularPictures = window.utils.getUniqueElementsArray(initLoadedPictures, 10);
     var initLoadedPicturesCopy = initLoadedPictures.slice();
     discussedPictures = initLoadedPicturesCopy.sort(compareCommentsQuantity);
 

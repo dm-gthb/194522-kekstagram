@@ -52,21 +52,22 @@
         effectDepthLineColorFillElement.style.width = getEffectControlPersentPositionLeft() + '%';
         effectDepthValue = Math.floor(getEffectControlPersentPositionLeft()).toString();
 
+        var appliedEffect;
         switch (selectedEffectName) {
           case 'chrome':
-            var appliedEffect = 'grayscale' + '(' + window.utils.getFraction(effectDepthValue, 1) + ')';
+            appliedEffect = 'grayscale(' + window.utils.getFraction(effectDepthValue, 1) + ')';
             break;
           case 'sepia':
-            appliedEffect = 'sepia' + '(' + window.utils.getFraction(effectDepthValue, 1) + ')';
+            appliedEffect = 'sepia(' + window.utils.getFraction(effectDepthValue, 1) + ')';
             break;
           case 'phobos':
-            appliedEffect = 'blur' + '(' + window.utils.getFraction(effectDepthValue, 3) + 'px' + ')';
+            appliedEffect = 'blur(' + window.utils.getFraction(effectDepthValue, 3) + 'px)';
             break;
           case 'marvin':
-            appliedEffect = 'invert' + '(' + window.utils.getFraction(effectDepthValue, 100) + '%' + ')';
+            appliedEffect = 'invert(' + window.utils.getFraction(effectDepthValue, 100) + '%)';
             break;
           case 'heat':
-            appliedEffect = 'brightness' + '(' + window.utils.getFraction(effectDepthValue, 3) + ')';
+            appliedEffect = 'brightness(' + window.utils.getFraction(effectDepthValue, 3) + ')';
             break;
         }
 
