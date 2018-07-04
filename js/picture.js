@@ -101,8 +101,10 @@
       });
 
       previewPictureElement.addEventListener('keydown', function (evt) {
-        renderDetailedPicture(pictureToRender);
-        window.utils.isEnterEvent(evt, window.detailedImagePopup.show());
+        window.utils.isEnterEvent(evt, function () {
+          renderDetailedPicture(pictureToRender);
+          window.detailedImagePopup.show();
+        });
       });
       return previewPictureElement;
     },
