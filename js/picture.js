@@ -2,6 +2,8 @@
 
 (function () {
   var INIT_COMMENTS_QUANTITY = 5;
+  var COMMENT_AVATAR_WIDTH = 35;
+  var COMMENT_AVATAR_HEIGHT = 35;
   var previewPictureTemplateElement = document.querySelector('#picture').content.querySelector('.picture__link');
   var detailedPictureContainerElement = document.querySelector('.big-picture');
   var detailedPictureLoadCommentsElement = detailedPictureContainerElement.querySelector('.social__loadmore');
@@ -31,8 +33,8 @@
         commentElement.classList.add('social__comment');
         commentAvatarElement.classList.add('social__picture');
         commentAvatarElement.src = 'img/avatar-' + window.utils.getRandomNumber(1, 6) + '.svg';
-        commentAvatarElement.width = 35;
-        commentAvatarElement.height = 35;
+        commentAvatarElement.width = COMMENT_AVATAR_WIDTH;
+        commentAvatarElement.height = COMMENT_AVATAR_HEIGHT;
         commentAvatarElement.alt = 'Аватар комментатора фотографии';
         commentTextElement.classList.add('social__text');
         commentTextElement.textContent = element;
