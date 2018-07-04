@@ -97,6 +97,11 @@
         renderDetailedPicture(pictureToRender);
         window.detailedImagePopup.show();
       });
+
+      previewPictureElement.addEventListener('keydown', function (evt) {
+        renderDetailedPicture(pictureToRender);
+        window.utils.isEnterEvent(evt, window.detailedImagePopup.show());
+      });
       return previewPictureElement;
     },
 
