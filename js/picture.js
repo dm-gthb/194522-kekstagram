@@ -95,22 +95,25 @@
       previewPictureLikesElement.textContent = pictureToRender.likes;
       previewPictureCommentsQuantityElement.textContent = pictureToRender.comments.length;
 
-      previewPictureImgElement.addEventListener('click', function () {
+      function showDatailedPicture() {
         renderDetailedPicture(pictureToRender);
         window.detailedImagePopup.show();
         window.gallery.saveFocusedElement(previewPictureElement);
+      }
+
+      previewPictureImgElement.addEventListener('click', function () {
+        showDatailedPicture();
       });
 
       previewPictureElement.addEventListener('keydown', function (evt) {
         window.utils.isEnterEvent(evt, function () {
-          renderDetailedPicture(pictureToRender);
-          window.detailedImagePopup.show();
-          window.gallery.saveFocusedElement(previewPictureElement);
+          showDatailedPicture();
         });
       });
       return previewPictureElement;
     },
 
-    commentsCount: INIT_COMMENTS_QUANTITY
+    commentsCount: INIT_COMMENTS_QUANTITY,
+    INIT_COMMENTS_QUANTITY: INIT_COMMENTS_QUANTITY
   };
 })();
