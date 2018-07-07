@@ -98,14 +98,14 @@
       previewPictureImgElement.addEventListener('click', function () {
         renderDetailedPicture(pictureToRender);
         window.detailedImagePopup.show();
-        window.gallery.saveFocusedElement(previewPictureImgElement);
+        window.gallery.saveFocusedElement(previewPictureElement);
       });
 
       previewPictureElement.addEventListener('keydown', function (evt) {
         window.utils.isEnterEvent(evt, function () {
           renderDetailedPicture(pictureToRender);
           window.detailedImagePopup.show();
-          window.gallery.saveFocusedElement(previewPictureImgElement);
+          window.gallery.saveFocusedElement(previewPictureElement);
         });
       });
       return previewPictureElement;

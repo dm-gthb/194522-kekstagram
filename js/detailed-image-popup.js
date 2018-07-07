@@ -14,8 +14,7 @@
     detailedPictureContainerElement.classList.add('hidden');
     document.removeEventListener('keydown', detailedPictureEscPressHandler);
     window.picture.commentsCount = 5;
-    var previewLastClicked = window.gallery.getFocusedElement();
-    previewLastClicked.parentNode.focus();
+    window.gallery.getFocusedElement().focus();
   }
 
   closeDetailedPictureElement.addEventListener('click', function () {
