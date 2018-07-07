@@ -13,7 +13,8 @@
   function hideDetailedPicture() {
     detailedPictureContainerElement.classList.add('hidden');
     document.removeEventListener('keydown', detailedPictureEscPressHandler);
-    window.picture.commentsCount = 5;
+    window.picture.commentsCount = window.picture.INIT_COMMENTS_QUANTITY;
+    window.gallery.getFocusedElement().focus();
   }
 
   closeDetailedPictureElement.addEventListener('click', function () {
@@ -28,6 +29,7 @@
     show: function () {
       detailedPictureContainerElement.classList.remove('hidden');
       document.addEventListener('keydown', detailedPictureEscPressHandler);
+      detailedPictureContainerElement.focus();
     }
   };
 })();

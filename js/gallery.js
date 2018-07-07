@@ -12,6 +12,7 @@
   var initLoadedPictures;
   var popularPictures;
   var discussedPictures;
+  var currentFocusedElement;
 
   function renderPreviewPictures(picturesToRender) {
     picturesToRender.forEach(function (element) {
@@ -82,4 +83,14 @@
   });
 
   window.backend.download(successLoadHandler, errorLoadHandler, false);
+
+  window.gallery = {
+    saveFocusedElement: function (element) {
+      currentFocusedElement = element;
+    },
+
+    getFocusedElement: function () {
+      return currentFocusedElement;
+    }
+  };
 })();

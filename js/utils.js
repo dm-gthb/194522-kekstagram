@@ -45,8 +45,11 @@
 
     checkUniqueElements: function (array) {
       var i = 0;
-      while (i < array.length - 1) {
-        if (array.indexOf(array[i], i + 1) > -1) {
+      var loweredCaseArray = array.map(function (element) {
+        return element.toLowerCase();
+      });
+      while (i < loweredCaseArray.length - 1) {
+        if (loweredCaseArray.indexOf(loweredCaseArray[i], i + 1) > -1) {
           return false;
         }
         i++;
