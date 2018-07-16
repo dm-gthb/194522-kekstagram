@@ -13,7 +13,7 @@
   function hideDetailedPicture() {
     detailedPictureContainerElement.classList.add('hidden');
     document.removeEventListener('keydown', detailedPictureEscPressHandler);
-    window.picture.commentsCount = window.picture.INIT_COMMENTS_QUANTITY;
+    window.render.commentsCount = window.render.INIT_COMMENTS_QUANTITY;
     window.gallery.getFocusedElement().focus();
   }
 

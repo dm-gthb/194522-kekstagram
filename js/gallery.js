@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var fragment = document.createDocumentFragment();
   var previewPicturesContainerElement = document.querySelector('.pictures');
   var headerMenuElement = document.querySelector('.img-filters');
   var filtersContainerElement = headerMenuElement.querySelector('.img-filters__form');
@@ -14,19 +13,10 @@
   var discussedPictures;
   var currentFocusedElement;
 
-  function renderPreviewPictures(picturesToRender) {
-    picturesToRender.forEach(function (element) {
-      var newPreviewPicture = window.picture.renderPreview(element);
-      fragment.appendChild(newPreviewPicture);
-    });
-
-    previewPicturesContainerElement.appendChild(fragment);
-  }
-
   function updatePreviewPictures(newPictures) {
     window.utils.debounce(function () {
       deletePictures();
-      renderPreviewPictures(newPictures);
+      window.render.preview(newPictures);
     });
   }
 
@@ -51,7 +41,7 @@
     var initLoadedPicturesCopy = initLoadedPictures.slice();
     discussedPictures = initLoadedPicturesCopy.sort(compareCommentsQuantity);
 
-    renderPreviewPictures(initLoadedPictures);
+    window.render.preview(initLoadedPictures);
     headerMenuElement.classList.remove('img-filters--inactive');
   }
 
